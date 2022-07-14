@@ -1,10 +1,10 @@
-﻿using DatabaseLayer.UserModels;
-using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace BusinessLayer.Interface
+﻿namespace BusinessLayer.Interface
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Text;
+    using DatabaseLayer.UserModels;
+
     public interface IUserBL
     {
         public void AddUser(UserPostModel userPostModel);

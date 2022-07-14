@@ -1,0 +1,1 @@
+﻿2022-07-14 17:30:27.3919|INFO|NLogger.Services.LoggerManager|User Regestration Email : sagar@gmail.com

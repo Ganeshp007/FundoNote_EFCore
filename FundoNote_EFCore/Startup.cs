@@ -1,32 +1,34 @@
-using BusinessLayer.Interface;
-using BusinessLayer.Servies;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using Microsoft.IdentityModel.Tokens;
-using Microsoft.OpenApi.Models;
-using RepositoryLayer.Interface;
-using RepositoryLayer.Services;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 namespace FundoNote_EFCore
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Text;
+    using System.Threading.Tasks;
+    using BusinessLayer.Interface;
+    using BusinessLayer.Servies;
+    using Microsoft.AspNetCore.Authentication.JwtBearer;
+    using Microsoft.AspNetCore.Builder;
+    using Microsoft.AspNetCore.Hosting;
+    using Microsoft.AspNetCore.HttpsPolicy;
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.EntityFrameworkCore;
+    using Microsoft.Extensions.Configuration;
+    using Microsoft.Extensions.DependencyInjection;
+    using Microsoft.Extensions.Hosting;
+    using Microsoft.Extensions.Logging;
+    using Microsoft.IdentityModel.Tokens;
+    using Microsoft.OpenApi.Models;
+    using NLogger.Interface;
+    using NLogger.Services;
+    using RepositoryLayer.Interface;
+    using RepositoryLayer.Services;
+
     public class Startup
     {
         public Startup(IConfiguration configuration)
         {
-            Configuration = configuration;
+            this.Configuration = configuration;
         }
 
         public IConfiguration Configuration { get; }
@@ -49,7 +51,7 @@ namespace FundoNote_EFCore
                     ValidateIssuerSigningKey = true,
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes("THIS_IS_MY_KEY_TO_GENERATE_TOKEN")),
                     ValidateIssuer = false,
-                    ValidateAudience = false
+                    ValidateAudience = false,
 
                 };
             });
@@ -68,18 +70,19 @@ namespace FundoNote_EFCore
                       Reference = new OpenApiReference
                       {
                           Id = JwtBearerDefaults.AuthenticationScheme,
-                          Type = ReferenceType.SecurityScheme
-                      }
+                          Type = ReferenceType.SecurityScheme,
+                      },
                   };
                   setup.AddSecurityDefinition(jwtSecurityScheme.Reference.Id, jwtSecurityScheme);
 
                   setup.AddSecurityRequirement(new OpenApiSecurityRequirement
-              {
-                    { jwtSecurityScheme, Array.Empty<string>() }
-              });
+                  {
+                        { jwtSecurityScheme, Array.Empty<string>() },
+                  });
 
               }
                   );
+            services.AddSingleton<ILoggerManager, LoggerManager>();
             services.AddTransient<IUserRL, UserRL>();
             services.AddTransient<IUserBL, UserBL>();
 
@@ -91,7 +94,6 @@ namespace FundoNote_EFCore
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-               
             }
 
             app.UseHttpsRedirection();
@@ -99,6 +101,7 @@ namespace FundoNote_EFCore
             app.UseAuthentication();
             app.UseAuthorization();
             app.UseSwagger();
+
             // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.)
             app.UseSwaggerUI(c =>
             {

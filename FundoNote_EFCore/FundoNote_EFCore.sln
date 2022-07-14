@@ -3,13 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.2.32616.157
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FundoNote_EFCore", "FundoNote_EFCore.csproj", "{447B7163-13EE-4889-B55E-2F9752CEEC45}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FundoNote_EFCore", "FundoNote_EFCore.csproj", "{447B7163-13EE-4889-B55E-2F9752CEEC45}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BusinessLayer", "..\BusinessLayer\BusinessLayer.csproj", "{969B173C-B4A6-4B5A-9BAE-E4FE80D055EF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BusinessLayer", "..\BusinessLayer\BusinessLayer.csproj", "{969B173C-B4A6-4B5A-9BAE-E4FE80D055EF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DatabaseLayer", "..\DatabaseLayer\DatabaseLayer.csproj", "{BD50A79E-EAFA-461B-89F4-4F7E8E56B88E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DatabaseLayer", "..\DatabaseLayer\DatabaseLayer.csproj", "{BD50A79E-EAFA-461B-89F4-4F7E8E56B88E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RepositoryLayer", "..\RepositoryLayer\RepositoryLayer.csproj", "{8D2F8478-5512-4E87-BF55-275A11098A9F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RepositoryLayer", "..\RepositoryLayer\RepositoryLayer.csproj", "{8D2F8478-5512-4E87-BF55-275A11098A9F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NLogger", "..\NLogger\NLogger.csproj", "{F690B79E-0B85-4143-B0A1-AA79296B8776}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{8D2F8478-5512-4E87-BF55-275A11098A9F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8D2F8478-5512-4E87-BF55-275A11098A9F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8D2F8478-5512-4E87-BF55-275A11098A9F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F690B79E-0B85-4143-B0A1-AA79296B8776}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F690B79E-0B85-4143-B0A1-AA79296B8776}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F690B79E-0B85-4143-B0A1-AA79296B8776}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F690B79E-0B85-4143-B0A1-AA79296B8776}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,22 +1,24 @@
-﻿using DatabaseLayer.UserModels;
-using Microsoft.Extensions.Configuration;
-using RepositoryLayer.Interface;
-using RepositoryLayer.Services.Entity;
-using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace RepositoryLayer.Services
+﻿namespace RepositoryLayer.Services
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Text;
+    using DatabaseLayer.UserModels;
+    using Microsoft.Extensions.Configuration;
+    using RepositoryLayer.Interface;
+    using RepositoryLayer.Services.Entity;
+
     public class UserRL : IUserRL
     {
-        FundoContext fundoContext;
-        IConfiguration iconfiguration;
+        private readonly FundoContext fundoContext;
+        private readonly IConfiguration iconfiguration;
+
         public UserRL(FundoContext fundoContext,IConfiguration iconfiguration)
         {
             this.fundoContext = fundoContext;
             this.iconfiguration = iconfiguration;
         }
+
         public void AddUser(UserPostModel userPostModel)
         {
             try
@@ -28,10 +30,10 @@ namespace RepositoryLayer.Services
                 user.Password = userPostModel.Password;
                 user.CreateDate = DateTime.Now;
                 user.ModifiedDate = DateTime.Now;
-                fundoContext.Add(user);
-                fundoContext.SaveChanges();
+                this.fundoContext.Users.Add(user);
+                this.fundoContext.SaveChanges();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw ex;
             }
