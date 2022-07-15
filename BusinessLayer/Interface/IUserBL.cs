@@ -9,8 +9,10 @@
     public interface IUserBL
     {
         public void AddUser(UserPostModel userPostModel);
+
         public List<User> GetAllUsers();
 
+        public string LoginUser(UserLoginModel userLoginModel);
 
     }
 }

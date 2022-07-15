@@ -62,5 +62,27 @@
                 throw ex;
             }
         }
+
+        [HttpPost("LoginUser")]
+        public IActionResult LoginUser(UserLoginModel userModel)
+        {
+            try
+            {
+                string token = this.userBL.LoginUser(userModel);
+                if (token == null)
+                {
+                    this.logger.LogError($"Login Unsuccessfull : {userModel.Email}");
+                    return this.BadRequest(new { success = false, message = "Enter Valid Email and Password!!" });
+                }
+
+                this.logger.LogInfo($"User Login Successfull : {userModel.Email}");
+                return this.Ok(new { success = true, message = "User Loged In Successfully...", data = token });
+            }
+            catch (Exception ex)
+            {
+                this.logger.LogError($"User Login Failed : {userModel.Email}");
+                throw ex;
+            }
+        }
     }
 }

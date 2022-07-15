@@ -3,3 +3,6 @@
 2022-07-15 15:31:48.7948|INFO|NLogger.Services.LoggerManager|User Regestration Email : priya@gmail.com
 2022-07-15 15:32:38.1719|INFO|NLogger.Services.LoggerManager|User Regestration Email : prasad@gmail.com
 2022-07-15 15:32:45.3455|INFO|NLogger.Services.LoggerManager|User Data Retrieved Succesfully...
+2022-07-15 16:07:50.9755|INFO|NLogger.Services.LoggerManager|User Login Successfull : ganesh@gmail.com
+2022-07-15 16:08:39.9234|INFO|NLogger.Services.LoggerManager|User Login Successfull : ajay@gmail.com
+2022-07-15 16:09:07.2136|ERROR|NLogger.Services.LoggerManager|Login Unsuccessfull : rohan@gmail.com
