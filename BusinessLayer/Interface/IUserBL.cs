@@ -14,5 +14,7 @@
 
         public string LoginUser(UserLoginModel userLoginModel);
 
+        public bool ForgetPasswordUser(string email);
+
     }
 }
