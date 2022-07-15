@@ -7,3 +7,4 @@
 2022-07-15 16:08:39.9234|INFO|NLogger.Services.LoggerManager|User Login Successfull : ajay@gmail.com
 2022-07-15 16:09:07.2136|ERROR|NLogger.Services.LoggerManager|Login Unsuccessfull : rohan@gmail.com
 2022-07-15 17:28:31.6570|INFO|NLogger.Services.LoggerManager|Password RestLink Sent Successfully for : ganesh@gmail.com
+2022-07-15 18:29:14.3158|INFO|NLogger.Services.LoggerManager|Password Reset Successfully for : ganesh@gmail.com

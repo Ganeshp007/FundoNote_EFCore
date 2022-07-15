@@ -2,8 +2,11 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
+    using System.Security.Claims;
     using BusinessLayer.Interface;
     using DatabaseLayer.UserModels;
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using NLogger.Interface;
     using RepositoryLayer.Services;
@@ -93,15 +96,49 @@
                 bool isExist = this.userBL.ForgetPasswordUser(email);
                 if (isExist)
                 {
-                    this.logger.LogInfo($"Password RestLink Sent Successfully for : {email}");
+                    this.logger.LogInfo($"Password ResetLink Sent Successfully for : {email}");
                     return Ok(new { success = true, message = $"Password Reset Link sent successfully for : {email}" });
                 }
-                this.logger.LogInfo($"Password RestLink Sent UnSuccessfully for : {email}");
+                this.logger.LogInfo($"Password ResetLink Sent UnSuccessfully for : {email}");
                 return BadRequest(new { success = false, message = $"No User Exist with Email : {email}" });
             }
             catch (Exception ex)
             {
                 this.logger.LogError($"Something Went Wrong  : {email}");
+                throw ex;
+            }
+        }
+
+        [Authorize]
+        [HttpPost("ResetPassword")]
+        public IActionResult ResetPassword(PasswordModel modelPassword)
+        {
+            try
+            {
+                if (modelPassword.Password != modelPassword.ConfirmPassword)
+                {
+                    this.logger.LogInfo($"Password Reset UnSuccessfull Due to Invalid Credentials!!!");
+                    return this.BadRequest(new { success = false, message = "New Password and Confirm Password are not equal." });
+                }
+
+                var identity = User.Identity as ClaimsIdentity;
+                if (identity != null)
+                {
+                    IEnumerable<Claim> claims = identity.Claims;
+                    var email = claims.Where(p => p.Type == @"Email").FirstOrDefault()?.Value;
+                    this.userBL.ResetPassword(email, modelPassword);
+                    this.logger.LogInfo($"Password Reset Successfully for : {email}");
+                    return this.Ok(new { success = true, message = "Password Reset Sucessfully...", email = $"{email}" });
+                }
+                else
+                {
+                    this.logger.LogInfo($"Password Reset UnSuccessfull!!!");
+                    return this.BadRequest(new { success = false, message = "Password Reset Unsuccessful!!!" });
+                }
+            }
+            catch (Exception ex)
+            {
+                this.logger.LogInfo($"Something went Wrong!!!");
                 throw ex;
             }
         }
