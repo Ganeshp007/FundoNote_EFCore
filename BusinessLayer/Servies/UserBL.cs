@@ -6,6 +6,7 @@
     using BusinessLayer.Interface;
     using DatabaseLayer.UserModels;
     using RepositoryLayer.Interface;
+    using RepositoryLayer.Services.Entity;
 
     public class UserBL : IUserBL
     {
@@ -21,6 +22,18 @@
             try
             {
                 this.userRL.AddUser(userPostModel);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public List<User> GetAllUsers()
+        {
+            try
+            {
+                return this.userRL.GetAllUsers();
             }
             catch (Exception ex)
             {

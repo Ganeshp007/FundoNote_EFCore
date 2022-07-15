@@ -1,1 +1,5 @@
-﻿2022-07-14 17:30:27.3919|INFO|NLogger.Services.LoggerManager|User Regestration Email : sagar@gmail.com
+﻿2022-07-15 15:29:39.2984|INFO|NLogger.Services.LoggerManager|User Regestration Email : ganesh@gmail.com
+2022-07-15 15:30:49.6155|INFO|NLogger.Services.LoggerManager|User Regestration Email : ajay@gmail.com
+2022-07-15 15:31:48.7948|INFO|NLogger.Services.LoggerManager|User Regestration Email : priya@gmail.com
+2022-07-15 15:32:38.1719|INFO|NLogger.Services.LoggerManager|User Regestration Email : prasad@gmail.com
+2022-07-15 15:32:45.3455|INFO|NLogger.Services.LoggerManager|User Data Retrieved Succesfully...

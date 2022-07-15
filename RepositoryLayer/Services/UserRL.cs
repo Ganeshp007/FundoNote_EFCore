@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using System.Text;
     using DatabaseLayer.UserModels;
     using Microsoft.Extensions.Configuration;
@@ -38,6 +39,18 @@
                 throw ex;
             }
 
+        }
+
+        public List<User> GetAllUsers()
+        {
+            try
+            {
+                return this.fundoContext.Users.ToList();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
     }
 }
