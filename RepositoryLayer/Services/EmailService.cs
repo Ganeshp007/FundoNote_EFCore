@@ -1,11 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Net;
-using System.Net.Mail;
-using System.Text;
-
-namespace RepositoryLayer.Services
+﻿namespace RepositoryLayer.Services
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Net;
+    using System.Net.Mail;
+    using System.Text;
+
     public class EmailService
     {
         public static void SendEmail(string email, string token, string Firstname)

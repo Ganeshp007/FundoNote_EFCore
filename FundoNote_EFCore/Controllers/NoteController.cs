@@ -56,6 +56,7 @@
                     this.logger.LogInfo($"No Notes Exists At Moment!! UserId = {userId}");
                     return this.BadRequest(new { sucess = false, Message = "You Dont Have Any Notes!!" });
                 }
+
                 this.logger.LogInfo($"All Notes Retrieved Successfully UserId = {userId}");
                 return this.Ok(new { sucess = true, Message = "Notes Data Retrieved successfully...", data = NoteData });
             }

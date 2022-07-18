@@ -154,6 +154,7 @@
             }
 
         }
+
         private void msmqQueue_ReceiveCompleted(object sender, ReceiveCompletedEventArgs e)
         {
             try

@@ -21,6 +21,7 @@
             this.fundoContext = fundoContext;
             this.iconfiguration = iconfiguration;
         }
+
         public async Task AddNote(int UserId, NotePostModel notePostModel)
         {
             try
