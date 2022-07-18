@@ -32,13 +32,17 @@
         {
             try
             {
-                this.logger.LogInfo($"User Regestration Email : {userPostModel.Email}");
                 this.userBL.AddUser(userPostModel);
+                this.logger.LogInfo($"User Regestration Successfull with Email: {userPostModel.Email}");
                 return this.Ok(new { success = true, Message = "User Added Sucessesfully.." });
             }
             catch (Exception ex)
             {
                 logger.LogError($"User Regestration Fail: {userPostModel.Email}");
+                if(ex.Message.Equals("User Email Already Exists!!"))
+                {
+                    return BadRequest(new { sucess = false, message = "User Email Already Exists!!" });
+                }
                 throw ex;
             }
         }
@@ -61,7 +65,7 @@
             }
             catch (Exception ex)
             {
-                this.logger.LogInfo($"User Data Retrieve UnSuccesfull...");
+                this.logger.LogError($"User Data Retrieve UnSuccesfull...");
                 throw ex;
             }
         }
@@ -74,7 +78,7 @@
                 string token = this.userBL.LoginUser(userModel);
                 if (token == null)
                 {
-                    this.logger.LogError($"Login Unsuccessfull : {userModel.Email}");
+                    this.logger.LogInfo($"Login Unsuccessfull : {userModel.Email}");
                     return this.BadRequest(new { success = false, message = "Enter Valid Email and Password!!" });
                 }
 
@@ -138,7 +142,7 @@
             }
             catch (Exception ex)
             {
-                this.logger.LogInfo($"Something went Wrong!!!");
+                this.logger.LogError($"Something went Wrong!!!");
                 throw ex;
             }
         }

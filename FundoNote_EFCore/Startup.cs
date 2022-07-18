@@ -85,6 +85,8 @@ namespace FundoNote_EFCore
             services.AddSingleton<ILoggerManager, LoggerManager>();
             services.AddTransient<IUserRL, UserRL>();
             services.AddTransient<IUserBL, UserBL>();
+            services.AddTransient<INoteRL, NoteRL>();
+            services.AddTransient<INoteBL, NoteBL>();
 
         }
 
