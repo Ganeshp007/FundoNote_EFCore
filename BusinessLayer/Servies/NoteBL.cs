@@ -29,17 +29,25 @@
             }
         }
 
-        public Task DeleteNote(int UserId, int NoteId)
-        {
-            throw new NotImplementedException();
-        }
-
         public async Task<List<GetNoteResponse>> GetAllNote(int UserId)
         {
-            throw new NotImplementedException();
+            try
+            {
+                return await this.noteRL.GetAllNote(UserId);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
         }
 
         public Task UpdateNote(int UserId, int NoteId, UpdateNoteModel updateNoteModel)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task DeleteNote(int UserId, int NoteId)
         {
             throw new NotImplementedException();
         }

@@ -13,3 +13,4 @@
 2022-07-18 13:53:42.8696|INFO|NLogger.Services.LoggerManager|User Regestration Email : vinay@gmail.com
 2022-07-18 14:08:44.6632|INFO|NLogger.Services.LoggerManager|User Login Successfull : ganesh@gmail.com
 2022-07-18 14:09:30.5622|INFO|NLogger.Services.LoggerManager|Note Created Successfully UserId = UserId: 1
+2022-07-18 14:18:59.4577|INFO|NLogger.Services.LoggerManager|All Notes Retrieved Successfully UserId = UserId: 1

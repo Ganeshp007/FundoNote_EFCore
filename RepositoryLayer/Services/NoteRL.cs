@@ -43,7 +43,31 @@
 
         public async Task<List<GetNoteResponse>> GetAllNote(int UserId)
         {
-            throw new NotImplementedException();
+            try
+            {
+                return await fundoContext.Users
+               .Where(u => u.UserId == UserId)
+               .Join(fundoContext.Notes,
+               u => u.UserId,
+               n => n.UserId,
+               (u, n) => new GetNoteResponse
+               {
+                   NoteId = n.NoteId,
+                   UserId = u.UserId,
+                   Title = n.Title,
+                   Description = n.Description,
+                   Bgcolor = n.Bgcolor,
+                   Firstname = u.Firstname,
+                   Lasttname = u.Lastname,
+                   Email = u.Email,
+                   CreatedDate = u.CreateDate
+               }).ToListAsync();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
         }
 
         public Task UpdateNote(int UserId, int NoteId, UpdateNoteModel updateNoteModel)

@@ -42,5 +42,28 @@
                 throw ex;
             }
         }
+
+        [HttpGet("GetALlNote")]
+        public async Task<IActionResult> GetAllNote()
+        {
+            try
+            {
+                var userId = User.Claims.FirstOrDefault(x => x.Type.ToString().Equals("UserId", StringComparison.InvariantCultureIgnoreCase));
+                int UserId = Int32.Parse(userId.Value);
+                var NoteData = await this.noteBL.GetAllNote(UserId);
+                if (NoteData == null)
+                {
+                    this.logger.LogInfo($"No Notes Exists At Moment!! UserId = {userId}");
+                    return this.BadRequest(new { sucess = false, Message = "You Dont Have Any Notes!!" });
+                }
+                this.logger.LogInfo($"All Notes Retrieved Successfully UserId = {userId}");
+                return this.Ok(new { sucess = true, Message = "Notes Data Retrieved successfully...", data = NoteData });
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
     }
 }
