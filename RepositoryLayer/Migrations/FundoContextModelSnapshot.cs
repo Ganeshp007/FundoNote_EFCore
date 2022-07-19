@@ -50,6 +50,9 @@ namespace RepositoryLayer.Migrations
                     b.Property<DateTime>("RegisteredDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<DateTime>("Remainder")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("Title")
                         .HasColumnType("nvarchar(max)");
 

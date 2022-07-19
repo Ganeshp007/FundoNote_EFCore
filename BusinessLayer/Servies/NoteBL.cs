@@ -54,9 +54,28 @@
             }
         }
 
-        public Task DeleteNote(int UserId, int NoteId)
+        public async Task DeleteNote(int UserId, int NoteId)
         {
-            throw new NotImplementedException();
+            try
+            {
+                await this.noteRL.DeleteNote(UserId, NoteId);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public async Task<string> Remainder(int UserId, int NoteId, DateTime Remainder)
+        {
+            try
+            {
+                return await this.noteRL.Remainder(UserId, NoteId, Remainder);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
     }
 }

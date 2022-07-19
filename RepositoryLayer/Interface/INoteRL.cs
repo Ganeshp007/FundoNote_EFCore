@@ -15,5 +15,13 @@
         Task UpdateNote(int UserId, int NoteId, UpdateNoteModel updateNoteModel);
 
         Task DeleteNote(int UserId, int NoteId);
+
+        Task ArchiveNote(int UserId,int NoteId);
+
+        Task PinNote(int UserId,int NoteId);
+
+        Task<string> Remainder(int UserId,int NoteId,DateTime Remainder);
+
+        Task Trash(int UserId,int NoteId);
     }
 }

@@ -33,7 +33,7 @@
             {
                 var userId = User.Claims.FirstOrDefault(x => x.Type.ToString().Equals("UserId", StringComparison.InvariantCultureIgnoreCase));
                 int UserId = Int32.Parse(userId.Value);
-                await this.noteBL.AddNote(UserId,notePostModel);
+                await this.noteBL.AddNote(UserId, notePostModel);
                 this.logger.LogInfo($"Note Created Successfully UserId = {userId}");
                 return Ok(new { sucess = true, Message = "Note Created Successfully..." });
             }
@@ -51,7 +51,7 @@
                 var userId = User.Claims.FirstOrDefault(x => x.Type.ToString().Equals("UserId", StringComparison.InvariantCultureIgnoreCase));
                 int UserId = Int32.Parse(userId.Value);
                 var NoteData = await this.noteBL.GetAllNote(UserId);
-                if (NoteData.Count==0)
+                if (NoteData.Count == 0)
                 {
                     this.logger.LogInfo($"No Notes Exists At Moment!! UserId = {userId}");
                     return this.BadRequest(new { sucess = false, Message = "You Dont Have Any Notes!!" });
@@ -73,25 +73,49 @@
             {
                 var userId = User.Claims.FirstOrDefault(x => x.Type.ToString().Equals("UserId", StringComparison.InvariantCultureIgnoreCase));
                 int UserId = Int32.Parse(userId.Value);
-                if (updateNoteModel.Title == "string" && updateNoteModel.Description == "string" && updateNoteModel.Bgcolor == "string")
+                var updateNote = fundoContext.Notes.FirstOrDefault(x => x.NoteId == NoteId);
+                if (updateNote == null || updateNote.IsTrash == true)
+                {
+                    return this.BadRequest(new { sucess = false, Message = "Note Does not Exists!!" });
+                }
+
+                if (updateNoteModel.Title == "" || updateNoteModel.Title == "string" && updateNoteModel.Description == "string" && updateNoteModel.Bgcolor == "string")
                 {
                     return this.BadRequest(new { sucess = false, Message = "Please Provide Valid Fields for Note!!" });
                 }
 
                 await this.noteBL.UpdateNote(UserId, NoteId, updateNoteModel);
-                this.logger.LogInfo($"Note Updates Successfully NoteId={NoteId}|UserId = {userId}");
+                this.logger.LogInfo($"Note Updated Successfully NoteId={NoteId}|UserId = {userId}");
                 return Ok(new { sucess = true, Message = $"NoteId {NoteId} Updated Successfully..." });
             }
             catch (Exception ex)
             {
-                if (ex.Message == "Note Does Not Exists!!")
-                {
-                    this.logger.LogInfo($"No Notes Exists at Moment!!");
-                    return this.BadRequest(new { sucess = false, Message = $"NoteId {NoteId} Does not Exists!!" });
-                }
                 throw ex;
             }
         }
 
+        [HttpDelete("DeleteNote/{NoteId}")]
+        public async Task<IActionResult> DeleteNote(int NoteId)
+        {
+            try
+            {
+                var userId = User.Claims.FirstOrDefault(x => x.Type.ToString().Equals("UserId", StringComparison.InvariantCultureIgnoreCase));
+                int UserId = Int32.Parse(userId.Value);
+                var updateNote = fundoContext.Notes.FirstOrDefault(x => x.NoteId == NoteId);
+                if (updateNote == null || updateNote.IsTrash == true)
+                {
+                    return this.BadRequest(new { sucess = false, Message = "Note Does not Exists!!" });
+                }
+
+                await this.noteBL.DeleteNote(UserId, NoteId);
+                this.logger.LogInfo($"Note Moved to Trash  NoteId:{NoteId} | UserId:{UserId}");
+                return Ok(new { success = true, Message = $"NoteId : {NoteId} Moved to Trash SuccessFully..." });
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+        }
     }
 }

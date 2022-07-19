@@ -76,19 +76,30 @@
             try
             {
                 var updateNote = fundoContext.Notes.FirstOrDefault(x => x.NoteId == noteId);
-                if (updateNote == null)
-                {
-                    throw new Exception("Note Does Not Exists!!");
-                }
-                updateNote.Title=updateNoteModel.Title;
-                updateNote.Description=updateNoteModel.Description;
-                updateNote.Bgcolor=updateNoteModel.Bgcolor;
-                updateNote.IsPin=updateNoteModel.IsPin;
-                updateNote.IsArchive=updateNoteModel.IsArchive;
-                updateNote.IsRemainder=updateNoteModel.IsRemainder;
-                updateNote.IsTrash=updateNoteModel.IsTrash;
-                updateNote.ModifiedDate=DateTime.Now;
-                this.fundoContext.Notes.UpdateRange(updateNote);
+                updateNote.Title = updateNoteModel.Title;
+                updateNote.Description = updateNoteModel.Description;
+                updateNote.Bgcolor = updateNoteModel.Bgcolor;
+                updateNote.IsPin = updateNoteModel.IsPin;
+                updateNote.IsArchive = updateNoteModel.IsArchive;
+                updateNote.IsRemainder = updateNoteModel.IsRemainder;
+                updateNote.IsTrash = updateNoteModel.IsTrash;
+                updateNote.ModifiedDate = DateTime.Now;
+                this.fundoContext.Notes.Update(updateNote);// Optional
+                await this.fundoContext.SaveChangesAsync();
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public async Task DeleteNote(int userId, int noteId)
+        {
+            try
+            {
+                var DeleteNote = fundoContext.Notes.FirstOrDefault(x => x.NoteId == noteId);
+                DeleteNote.IsTrash = true;
                 await this.fundoContext.SaveChangesAsync();
             }
             catch (Exception ex)
@@ -97,7 +108,22 @@
             }
         }
 
-        public Task DeleteNote(int UserId, int NoteId)
+        public Task ArchiveNote(int UserId, int NoteId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task PinNote(int UserId, int NoteId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<string> Remainder(int UserId, int NoteId, DateTime Remainder)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task Trash(int UserId, int NoteId)
         {
             throw new NotImplementedException();
         }

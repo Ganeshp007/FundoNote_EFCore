@@ -4,3 +4,6 @@ select * from Users
 select * from Notes
 truncate table Users
 truncate table Notes
+
+drop table Notes
+drop table Users
