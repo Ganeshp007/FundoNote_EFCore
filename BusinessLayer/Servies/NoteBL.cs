@@ -66,11 +66,35 @@
             }
         }
 
-        public async Task<string> Remainder(int UserId, int NoteId, DateTime Remainder)
+        public async Task ArchiveNote(int UserId, int NoteId)
         {
             try
             {
-                return await this.noteRL.Remainder(UserId, NoteId, Remainder);
+                await this.noteRL.ArchiveNote(UserId, NoteId);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public async Task PinNote(int UserId, int NoteId)
+        {
+            try
+            {
+                await this.noteRL.PinNote(UserId, NoteId);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public async Task TrashNote(int UserId, int NoteId)
+        {
+            try
+            {
+                await this.noteRL.TrashNote(UserId, NoteId);
             }
             catch (Exception ex)
             {

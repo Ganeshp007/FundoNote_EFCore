@@ -108,24 +108,79 @@
             }
         }
 
-        public Task ArchiveNote(int UserId, int NoteId)
+        public async Task ArchiveNote(int userId, int noteId)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var note = fundoContext.Notes.FirstOrDefault(x => x.NoteId == noteId);
+                if (note != null && note.IsTrash == false)
+                {
+                    if (note.IsArchive == false)
+                    {
+                        note.IsArchive = true;
+                    }
+                    else
+                    {
+                        note.IsArchive = false;
+                    }
+                }
+
+                await this.fundoContext.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
-        public Task PinNote(int UserId, int NoteId)
+        public async Task PinNote(int userId, int noteId)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var note = fundoContext.Notes.FirstOrDefault(x => x.NoteId == noteId);
+                if (note != null && note.IsTrash == false)
+                {
+                    if (note.IsPin == false)
+                    {
+                        note.IsPin = true;
+                    }
+                    else
+                    {
+                        note.IsPin = false;
+                    }
+                }
+
+                await this.fundoContext.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
-        public Task<string> Remainder(int UserId, int NoteId, DateTime Remainder)
+        public async Task TrashNote(int userId, int noteId)
         {
-            throw new NotImplementedException();
-        }
+            try
+            {
+                var note = fundoContext.Notes.FirstOrDefault(x => x.NoteId == noteId);
+                if (note != null)
+                {
+                    if (note.IsTrash == false)
+                    {
+                        note.IsTrash = true;
+                    }
+                    else
+                    {
+                        note.IsTrash = false;
+                    }
+                }
 
-        public Task Trash(int UserId, int NoteId)
-        {
-            throw new NotImplementedException();
+                await this.fundoContext.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
     }
 }

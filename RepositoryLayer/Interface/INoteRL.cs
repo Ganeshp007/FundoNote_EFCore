@@ -20,8 +20,8 @@
 
         Task PinNote(int UserId,int NoteId);
 
-        Task<string> Remainder(int UserId,int NoteId,DateTime Remainder);
+        //Task<string> Remainder(int UserId,int NoteId,DateTime Remainder);
 
-        Task Trash(int UserId,int NoteId);
+        Task TrashNote(int UserId,int NoteId);
     }
 }
