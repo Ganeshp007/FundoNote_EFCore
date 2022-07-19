@@ -42,9 +42,16 @@
 
         }
 
-        public Task UpdateNote(int UserId, int NoteId, UpdateNoteModel updateNoteModel)
+        public async Task UpdateNote(int UserId, int NoteId, UpdateNoteModel updateNoteModel)
         {
-            throw new NotImplementedException();
+            try
+            {
+               await this.noteRL.UpdateNote(UserId, NoteId, updateNoteModel);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         public Task DeleteNote(int UserId, int NoteId)

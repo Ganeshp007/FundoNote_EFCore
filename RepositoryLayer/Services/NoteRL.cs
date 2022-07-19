@@ -71,9 +71,30 @@
 
         }
 
-        public Task UpdateNote(int UserId, int NoteId, UpdateNoteModel updateNoteModel)
+        public async Task UpdateNote(int userId, int noteId, UpdateNoteModel updateNoteModel)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var updateNote = fundoContext.Notes.FirstOrDefault(x => x.NoteId == noteId);
+                if (updateNote == null)
+                {
+                    throw new Exception("Note Does Not Exists!!");
+                }
+                updateNote.Title=updateNoteModel.Title;
+                updateNote.Description=updateNoteModel.Description;
+                updateNote.Bgcolor=updateNoteModel.Bgcolor;
+                updateNote.IsPin=updateNoteModel.IsPin;
+                updateNote.IsArchive=updateNoteModel.IsArchive;
+                updateNote.IsRemainder=updateNoteModel.IsRemainder;
+                updateNote.IsTrash=updateNoteModel.IsTrash;
+                updateNote.ModifiedDate=DateTime.Now;
+                this.fundoContext.Notes.UpdateRange(updateNote);
+                await this.fundoContext.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         public Task DeleteNote(int UserId, int NoteId)
