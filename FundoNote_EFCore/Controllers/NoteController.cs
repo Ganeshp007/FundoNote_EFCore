@@ -33,7 +33,7 @@
             {
                 var userId = User.Claims.FirstOrDefault(x => x.Type.ToString().Equals("UserId", StringComparison.InvariantCultureIgnoreCase));
                 int UserId = Int32.Parse(userId.Value);
-                
+
                 if (notePostModel.Title == "" || notePostModel.Title == "string" && notePostModel.Description == "string" && notePostModel.Bgcolor == "string")
                 {
                     this.logger.LogError($"Please Provide Valid Inputs!!");
@@ -144,8 +144,8 @@
                 }
 
                 await this.noteBL.PinNote(UserId, NoteId);
-                this.logger.LogInfo($"Note Archived Successfully NoteId={NoteId}|UserId = {userId}");
-                return this.Ok(new { sucess = true, Message = $"NoteId {NoteId} Archived Successfully..." });
+                this.logger.LogInfo($"Note Pinned Successfully NoteId={NoteId}|UserId = {userId}");
+                return this.Ok(new { sucess = true, Message = $"NoteId {NoteId} Pinned Successfully..." });
             }
             catch (Exception ex)
             {
@@ -177,6 +177,34 @@
             }
         }
 
+        [HttpPut("ReminderNote/{NoteId}")]
+
+        public async Task<IActionResult> ReminderNote(int NoteId, RemainderNoteModel reminderNoteModel)
+        {
+            try
+            {
+                var currentUser = HttpContext.User;
+                int userId = Convert.ToInt32(currentUser.Claims.FirstOrDefault(c => c.Type == "UserId").Value);
+                var reminder = Convert.ToDateTime(reminderNoteModel.Reminder);
+                var result = await this.noteBL.ReminderNote(userId, NoteId, reminder);
+
+                if (result != null)
+                {
+                    this.logger.LogInfo($"Note Reminder Set Successfully  NoteId={NoteId}|UserId = {userId}");
+                    return this.Ok(new { status = 200, success = true, message = result });
+                }
+                else
+                {
+                    this.logger.LogError($"Note Reminder Set UnSuccessfull!! {NoteId}|UserId = {userId}");
+                    return this.BadRequest(new { success = false, Message = $"NoteId {NoteId} Reminder set Failed!!" });
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
         [HttpPut("Trash/{NoteId}")]
         public async Task<IActionResult> TrashNote(int NoteId)
         {
@@ -184,16 +212,25 @@
             {
                 var userId = User.Claims.FirstOrDefault(x => x.Type.ToString().Equals("UserId", StringComparison.InvariantCultureIgnoreCase));
                 int UserId = Int32.Parse(userId.Value);
-                var updateNote = fundoContext.Notes.FirstOrDefault(x => x.NoteId == NoteId);
-                if (updateNote == null || updateNote.IsTrash == true)
+                var Note = fundoContext.Notes.FirstOrDefault(x => x.NoteId == NoteId);
+                if (Note == null)
                 {
                     this.logger.LogError($"Note Does Not Exists!! {NoteId}|UserId = {userId}");
                     return this.BadRequest(new { sucess = false, Message = "Note Does not Exists!!" });
                 }
 
                 await this.noteBL.TrashNote(UserId, NoteId);
-                this.logger.LogInfo($"Note Trashed Successfully NoteId={NoteId}|UserId = {userId}");
-                return this.Ok(new { sucess = true, Message = $"NoteId {NoteId} Trashed Successfully..." });
+
+                if(Note.IsTrash==true)
+                {
+                    this.logger.LogInfo($"Note Moved to Trash Successfully NoteId={NoteId}|UserId = {userId}");
+                    return this.Ok(new { sucess = true, Message = $"NoteId {NoteId} Moved to Trash Successfully..." });
+                }
+                else
+                {
+                    this.logger.LogInfo($"Note Removed from Trash Successfully NoteId={NoteId}|UserId = {userId}");
+                    return this.Ok(new { sucess = true, Message = $"NoteId {NoteId} Removed from Trash Successfully..." });
+                }
             }
             catch (Exception ex)
             {

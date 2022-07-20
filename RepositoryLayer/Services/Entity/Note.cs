@@ -19,10 +19,6 @@
 
         public string Bgcolor { get; set; }
 
-        [Required]
-        [ForeignKey("User")]
-        public int UserId { get; set; }
-
         public bool IsPin { get; set; }
 
         public bool IsArchive { get; set; }
@@ -36,5 +32,10 @@
         public DateTime RegisteredDate { get; set; }
 
         public DateTime ModifiedDate { get; set; }
+
+        [ForeignKey("User")]
+        public int UserId { get; set; }
+
+        public virtual User user { get; set; }
     }
 }

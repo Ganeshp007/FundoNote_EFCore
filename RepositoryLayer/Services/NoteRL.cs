@@ -48,7 +48,7 @@
             {
                 return await fundoContext.Users
                .Where(u => u.UserId == UserId)
-               .Join(fundoContext.Notes,
+               .Join(fundoContext.Notes.Where(r=> r.IsTrash==false),
                u => u.UserId,
                n => n.UserId,
                (u, n) => new GetNoteResponse
@@ -157,6 +157,32 @@
                 throw ex;
             }
         }
+
+        public async Task<string> ReminderNote(int userId, int noteId, DateTime Reminder)
+        {
+            try
+            {
+                var ReminderNoteResult = fundoContext.Notes.Where(x => x.NoteId == noteId && x.UserId == userId).FirstOrDefault();
+                if (ReminderNoteResult != null && ReminderNoteResult.IsRemainder==false)
+                {
+                    ReminderNoteResult.IsRemainder = true;
+                    ReminderNoteResult.Remainder = Reminder;
+                    await this.fundoContext.SaveChangesAsync();
+                    return "Reminder Set Successfull for date:" + Reminder.Date + " And Time : " + Reminder.TimeOfDay;
+                }
+                else
+                {
+                    ReminderNoteResult.IsRemainder = false;
+                    await this.fundoContext.SaveChangesAsync();
+                    return null;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
 
         public async Task TrashNote(int userId, int noteId)
         {

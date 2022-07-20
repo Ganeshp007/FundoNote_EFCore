@@ -101,5 +101,17 @@
                 throw ex;
             }
         }
+
+        public async Task<string> ReminderNote(int UserId, int NoteId, DateTime Reminder)
+        {
+            try
+            {
+                return await this.noteRL.ReminderNote(UserId, NoteId, Reminder);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
     }
 }

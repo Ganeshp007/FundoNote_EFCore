@@ -32,17 +32,19 @@
         {
             try
             {
-                this.userBL.AddUser(userPostModel);
-                this.logger.LogInfo($"User Regestration Successfull with Email: {userPostModel.Email}");
-                return this.Ok(new { success = true, Message = "User Added Sucessesfully.." });
+                var UniqueMailCheck = fundoContext.Users.Where(x => x.Email == userPostModel.Email).FirstOrDefault();
+                if (UniqueMailCheck == null)
+                {
+                    this.userBL.AddUser(userPostModel);
+                    this.logger.LogInfo($"User Regestration Successfull with Email: {userPostModel.Email}");
+                    return this.Ok(new { success = true, Message = "User Added Sucessesfully.." });
+                }
+
+                this.logger.LogError($"User Regestration UnSuccessfull with Email: {userPostModel.Email}");
+                return this.BadRequest(new { success = false, Message = "Email Already Exists!!" });
             }
             catch (Exception ex)
             {
-                logger.LogError($"User Regestration Fail: {userPostModel.Email}");
-                if(ex.Message.Equals("User Email Already Exists!!"))
-                {
-                    return BadRequest(new { sucess = false, message = "User Email Already Exists!!" });
-                }
                 throw ex;
             }
         }
@@ -58,14 +60,14 @@
                 if (getUsers.Count > 0)
                 {
                     this.logger.LogInfo($"User Data Retrieved Succesfully...");
-                    return Ok(new { success = true, message = "User Data Restrieved Successfully...", data = getUsers });
+                    return this.Ok(new { success = true, message = "User Data Restrieved Successfully...", data = getUsers });
                 }
-                this.logger.LogInfo($"No Users Exists at moment in DB...");
-                return BadRequest(new { sucess = false, message = "You Dont have any User at the moment in DB!!" });
+
+                this.logger.LogError($"No Users Exists at moment in DB...");
+                return this.BadRequest(new { sucess = false, message = "You Dont have any User at the moment in DB!!" });
             }
             catch (Exception ex)
             {
-                this.logger.LogError($"User Data Retrieve UnSuccesfull...");
                 throw ex;
             }
         }
@@ -78,7 +80,7 @@
                 string token = this.userBL.LoginUser(userModel);
                 if (token == null)
                 {
-                    this.logger.LogInfo($"Login Unsuccessfull : {userModel.Email}");
+                    this.logger.LogError($"Login Unsuccessfull : {userModel.Email}");
                     return this.BadRequest(new { success = false, message = "Enter Valid Email and Password!!" });
                 }
 
@@ -87,7 +89,6 @@
             }
             catch (Exception ex)
             {
-                this.logger.LogError($"User Login Failed : {userModel.Email}");
                 throw ex;
             }
         }
@@ -101,14 +102,14 @@
                 if (isExist)
                 {
                     this.logger.LogInfo($"Password ResetLink Sent Successfully for : {email}");
-                    return Ok(new { success = true, message = $"Password Reset Link sent successfully for : {email}" });
+                    return this.Ok(new { success = true, message = $"Password Reset Link sent successfully for : {email}" });
                 }
-                this.logger.LogInfo($"Password ResetLink Sent UnSuccessfully for : {email}");
-                return BadRequest(new { success = false, message = $"No User Exist with Email : {email}" });
+
+                this.logger.LogError($"Password ResetLink Sent UnSuccessfully for : {email}");
+                return this.BadRequest(new { success = false, message = $"No User Exist with Email : {email}" });
             }
             catch (Exception ex)
             {
-                this.logger.LogError($"Something Went Wrong  : {email}");
                 throw ex;
             }
         }
@@ -121,7 +122,7 @@
             {
                 if (modelPassword.Password != modelPassword.ConfirmPassword)
                 {
-                    this.logger.LogInfo($"Password Reset UnSuccessfull Due to Invalid Credentials!!!");
+                    this.logger.LogError($"Password Reset UnSuccessfull Due to Invalid Credentials!!!");
                     return this.BadRequest(new { success = false, message = "New Password and Confirm Password are not equal." });
                 }
 
@@ -136,13 +137,12 @@
                 }
                 else
                 {
-                    this.logger.LogInfo($"Password Reset UnSuccessfull!!!");
+                    this.logger.LogError($"Password Reset UnSuccessfull!!!");
                     return this.BadRequest(new { success = false, message = "Password Reset Unsuccessful!!!" });
                 }
             }
             catch (Exception ex)
             {
-                this.logger.LogError($"Something went Wrong!!!");
                 throw ex;
             }
         }

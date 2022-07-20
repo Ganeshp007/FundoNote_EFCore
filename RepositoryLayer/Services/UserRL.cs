@@ -35,20 +35,13 @@
                 user.Password = userPostModel.Password;
                 user.CreateDate = DateTime.Now;
                 user.ModifiedDate = DateTime.Now;
-                var UniqueMailCheck = fundoContext.Users.Where(x => x.Email == user.Email).FirstOrDefault();
-                if (UniqueMailCheck == null)
-                {
-                    this.fundoContext.Users.Add(user);
-                    this.fundoContext.SaveChanges();
-                }
-                else
-                    throw new Exception("User Email Already Exists!!");
+                this.fundoContext.Users.Add(user);
+                this.fundoContext.SaveChanges();
             }
             catch (Exception ex)
             {
                 throw ex;
             }
-
         }
 
         public List<User> GetAllUsers()
