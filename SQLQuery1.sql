@@ -13,3 +13,6 @@ drop table Users
 drop table Notes
 drop table Labels
 drop table [dbo].[__EFMigrationsHistory]
+
+
+select LabelName from Labels where USER_ID=1 and Noted=1

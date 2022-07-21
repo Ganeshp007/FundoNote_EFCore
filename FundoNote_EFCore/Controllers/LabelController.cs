@@ -62,5 +62,51 @@
                 throw ex;
             }
         }
+
+        [HttpGet("GetALlLabels")]
+        public async Task<IActionResult> GetAllLabels()
+        {
+            try
+            {
+                var userId = User.Claims.FirstOrDefault(x => x.Type.ToString().Equals("UserId", StringComparison.InvariantCultureIgnoreCase));
+                int UserId = Int32.Parse(userId.Value);
+                var NoteData = await this.LabelBL.GetAllLabel(UserId);
+                if (NoteData == null)
+                {
+                    this.logger.LogError($"No Labels Exists At Moment!! UserId = {userId}");
+                    return this.BadRequest(new { sucess = false, Message = "You Dont Have Any Notes!!" });
+                }
+
+                this.logger.LogInfo($"All Labels Retrieved Successfully UserId = {userId}");
+                return this.Ok(new { sucess = true, Message = "Labels Data Retrieved successfully...", data = NoteData });
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        [HttpGet("GetAllLabelByNoteId")]
+        public async Task<IActionResult> GetAllLabelByNoteId(int NoteId)
+        {
+            try
+            {
+                var userId = User.Claims.FirstOrDefault(x => x.Type.ToString().Equals("UserId", StringComparison.InvariantCultureIgnoreCase));
+                int UserId = Int32.Parse(userId.Value);
+                var NoteData = await this.LabelBL.GetLabelByNoteId(UserId,NoteId);
+                if (NoteData == null)
+                {
+                    this.logger.LogError($"No Labels Exists At Moment!! NoteId = {NoteId} | UserId = {userId}");
+                    return this.BadRequest(new { sucess = false, Message = "You Dont Have Any Notes!!" });
+                }
+
+                this.logger.LogInfo($"All Labels Retrieved Successfully NoteId = {NoteId} | UserId = {userId}");
+                return this.Ok(new { sucess = true, Message = "Labels Data Retrieved successfully...", data = NoteData });
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
     }
 }

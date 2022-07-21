@@ -75,3 +75,22 @@
 2022-07-21 14:03:31.0456|ERROR|NLogger.Services.LoggerManager|Login Unsuccessfull : ganesh@gmail.com
 2022-07-21 14:03:39.4626|INFO|NLogger.Services.LoggerManager|User Login Successfull : ganesh@gmail.com
 2022-07-21 14:04:16.4698|ERROR|NLogger.Services.LoggerManager|Label Set Successfully for 1|UserId = 1
+2022-07-21 15:19:04.9045|INFO|NLogger.Services.LoggerManager|User Login Successfull : ganesh@gmail.com
+2022-07-21 15:21:02.9846|INFO|NLogger.Services.LoggerManager|All Labels Retrieved Successfully UserId = UserId: 1
+2022-07-21 15:31:34.0386|INFO|NLogger.Services.LoggerManager|User Login Successfull : ganesh@gmail.com
+2022-07-21 15:32:13.4538|INFO|NLogger.Services.LoggerManager|All Labels Retrieved Successfully NoteId = RepositoryLayer.Services.Entity.Note | UserId = UserId: 1
+2022-07-21 15:35:13.5159|INFO|NLogger.Services.LoggerManager|All Labels Retrieved Successfully NoteId = 1 | UserId = UserId: 1
+2022-07-21 15:35:21.4180|INFO|NLogger.Services.LoggerManager|All Labels Retrieved Successfully NoteId = 2 | UserId = UserId: 1
+2022-07-21 15:43:49.8470|INFO|NLogger.Services.LoggerManager|All Labels Retrieved Successfully NoteId = 1 | UserId = UserId: 1
+2022-07-21 15:45:41.7215|INFO|NLogger.Services.LoggerManager|All Labels Retrieved Successfully NoteId = 1 | UserId = UserId: 1
+2022-07-21 16:03:20.0954|INFO|NLogger.Services.LoggerManager|All Labels Retrieved Successfully NoteId = 1 | UserId = UserId: 1
+2022-07-21 16:10:42.7460|INFO|NLogger.Services.LoggerManager|All Labels Retrieved Successfully NoteId = 1 | UserId = UserId: 1
+2022-07-21 16:23:07.7172|INFO|NLogger.Services.LoggerManager|All Labels Retrieved Successfully NoteId = 1 | UserId = UserId: 1
+2022-07-21 16:29:41.0769|INFO|NLogger.Services.LoggerManager|All Labels Retrieved Successfully NoteId = 1 | UserId = UserId: 1
+2022-07-21 16:35:37.9486|INFO|NLogger.Services.LoggerManager|All Labels Retrieved Successfully NoteId = 1 | UserId = UserId: 1
+2022-07-21 16:36:35.9537|INFO|NLogger.Services.LoggerManager|All Labels Retrieved Successfully UserId = UserId: 1
+2022-07-21 16:39:01.5128|INFO|NLogger.Services.LoggerManager|All Labels Retrieved Successfully NoteId = 1 | UserId = UserId: 1
+2022-07-21 16:45:59.9990|INFO|NLogger.Services.LoggerManager|All Labels Retrieved Successfully NoteId = 1 | UserId = UserId: 1
+2022-07-21 16:46:52.7661|INFO|NLogger.Services.LoggerManager|All Labels Retrieved Successfully NoteId = 1 | UserId = UserId: 1
+2022-07-21 16:49:31.7620|INFO|NLogger.Services.LoggerManager|All Labels Retrieved Successfully NoteId = 1 | UserId = UserId: 1
+2022-07-21 16:55:19.3009|INFO|NLogger.Services.LoggerManager|All Labels Retrieved Successfully NoteId = 1 | UserId = UserId: 1

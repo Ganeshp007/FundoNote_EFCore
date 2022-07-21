@@ -60,7 +60,7 @@
                 var NoteData = await this.noteBL.GetAllNote(UserId);
                 if (NoteData.Count == 0)
                 {
-                    this.logger.LogInfo($"No Notes Exists At Moment!! UserId = {userId}");
+                    this.logger.LogError($"No Notes Exists At Moment!! UserId = {userId}");
                     return this.BadRequest(new { sucess = false, Message = "You Dont Have Any Notes!!" });
                 }
 
