@@ -56,3 +56,22 @@
 2022-07-20 14:12:12.1776|INFO|NLogger.Services.LoggerManager|User Regestration Successfull with Email: ganesh@gmail.com
 2022-07-20 14:12:45.9172|INFO|NLogger.Services.LoggerManager|User Regestration Successfull with Email: rohan@gmail.com
 2022-07-20 14:12:54.7673|INFO|NLogger.Services.LoggerManager|User Data Retrieved Succesfully...
+2022-07-21 10:49:20.6871|INFO|NLogger.Services.LoggerManager|User Regestration Successfull with Email: ganesh@gmail.com
+2022-07-21 10:49:44.8832|INFO|NLogger.Services.LoggerManager|User Regestration Successfull with Email: rohan@gmail.com
+2022-07-21 10:49:55.9550|INFO|NLogger.Services.LoggerManager|User Data Retrieved Succesfully...
+2022-07-21 10:50:19.8814|INFO|NLogger.Services.LoggerManager|User Login Successfull : ganesh@gmail.com
+2022-07-21 10:51:12.0721|INFO|NLogger.Services.LoggerManager|Note Created Successfully UserId = UserId: 1
+2022-07-21 10:51:32.9299|INFO|NLogger.Services.LoggerManager|Note Created Successfully UserId = UserId: 1
+2022-07-21 10:51:40.4163|INFO|NLogger.Services.LoggerManager|All Notes Retrieved Successfully UserId = UserId: 1
+2022-07-21 10:51:56.8489|INFO|NLogger.Services.LoggerManager|Note Moved to Trash Successfully NoteId=2|UserId = UserId: 1
+2022-07-21 10:56:56.5281|INFO|NLogger.Services.LoggerManager|All Notes Retrieved Successfully UserId = UserId: 1
+2022-07-21 10:57:21.2835|INFO|NLogger.Services.LoggerManager|Note Removed from Trash Successfully NoteId=2|UserId = UserId: 1
+2022-07-21 10:57:27.9031|INFO|NLogger.Services.LoggerManager|All Notes Retrieved Successfully UserId = UserId: 1
+2022-07-21 10:57:52.0831|ERROR|NLogger.Services.LoggerManager|Entered InValid Inputs!! 2|UserId = 1
+2022-07-21 11:12:00.6819|INFO|NLogger.Services.LoggerManager|User Login Successfull : ganesh@gmail.com
+2022-07-21 11:20:06.1665|INFO|NLogger.Services.LoggerManager|Note Created Successfully UserId = UserId: 1
+2022-07-21 11:26:49.9442|INFO|NLogger.Services.LoggerManager|User Login Successfull : ganesh@gmail.com
+2022-07-21 11:28:27.4834|ERROR|NLogger.Services.LoggerManager|Label Already Exists!! 1|UserId = 1
+2022-07-21 14:03:31.0456|ERROR|NLogger.Services.LoggerManager|Login Unsuccessfull : ganesh@gmail.com
+2022-07-21 14:03:39.4626|INFO|NLogger.Services.LoggerManager|User Login Successfull : ganesh@gmail.com
+2022-07-21 14:04:16.4698|ERROR|NLogger.Services.LoggerManager|Label Set Successfully for 1|UserId = 1

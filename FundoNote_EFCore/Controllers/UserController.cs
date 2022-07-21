@@ -14,7 +14,7 @@
 
     [ApiController]
     [Route("[controller]")]
-    public class UserController : Controller
+    public class UserController : ControllerBase
     {
         private readonly ILoggerManager logger;
         private readonly FundoContext fundoContext;

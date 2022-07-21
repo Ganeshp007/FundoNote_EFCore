@@ -1,8 +1,5 @@
 ﻿namespace RepositoryLayer.Services
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Text;
     using Microsoft.EntityFrameworkCore;
     using RepositoryLayer.Services.Entity;
 
@@ -17,5 +14,7 @@
         public DbSet<User> Users { get; set; }
 
         public DbSet<Note> Notes { get; set; }
+
+        public DbSet<Label> Labels { get; set; }
     }
 }

@@ -13,7 +13,7 @@
     [Authorize]
     [ApiController]
     [Route("[controller]")]
-    public class NoteController : Controller
+    public class NoteController : ControllerBase
     {
         private readonly ILoggerManager logger;
         private readonly FundoContext fundoContext;
