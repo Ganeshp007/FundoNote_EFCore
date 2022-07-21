@@ -86,7 +86,7 @@
             }
         }
 
-        [HttpGet("GetAllLabelByNoteId")]
+        [HttpGet("GetAllLabelByNoteId/{NotedId}")]
         public async Task<IActionResult> GetAllLabelByNoteId(int NoteId)
         {
             try
