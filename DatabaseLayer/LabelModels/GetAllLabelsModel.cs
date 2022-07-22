@@ -1,9 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace DatabaseLayer.LabelModels
+﻿namespace DatabaseLayer.LabelModels
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Text;
+
     public class GetAllLabelsModel
     {
         public int UserId { get; set; }

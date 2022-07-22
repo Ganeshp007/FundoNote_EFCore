@@ -86,7 +86,7 @@
             }
         }
 
-        [HttpGet("GetAllLabelByNoteId/{NotedId}")]
+        [HttpGet("GetAllLabelByNoteId/{NoteId}")]
         public async Task<IActionResult> GetAllLabelByNoteId(int NoteId)
         {
             try
@@ -105,6 +105,41 @@
             }
             catch (Exception ex)
             {
+                throw ex;
+            }
+        }
+
+        [HttpPut("UpdateLabel/{NoteId}/{LabelId}/{NewLabelName}")]
+        public async Task<IActionResult> UpdatedLabel(int NoteId, int LabelId, string NewLabelName)
+        {
+            try
+            {
+                var userId = User.Claims.FirstOrDefault(x => x.Type.ToString().Equals("UserId", StringComparison.InvariantCultureIgnoreCase));
+                int UserId = int.Parse(userId.Value);
+                var Note = fundoContext.Notes.FirstOrDefault(x => x.NoteId == NoteId && x.UserId == UserId);
+                var label = this.fundoContext.Labels.FirstOrDefault(x => x.LabelId == LabelId);
+
+                if (Note == null)
+                {
+                    return this.BadRequest(new { sucess = false, Message = $"NoteId {NoteId} Does not Exists!!!" });
+                }
+
+                if (label == null)
+                {
+                    return this.BadRequest(new { sucess = false, Message = $"LabelId {LabelId} Does Not Exists!!" });
+                }
+
+                bool result = await this.LabelBL.UpdateLable(UserId, NoteId, LabelId, NewLabelName);
+                if (result)
+                {
+                    return this.Ok(new { sucess = true, Message = $"Updated Label {LabelId} Successfully..." });
+                }
+
+                return this.BadRequest(new { sucess = false, Message = $"Entered Label Name already exsists for LabelId{LabelId}!!" });
+            }
+            catch (Exception ex)
+            {
+                this.logger.LogError(ex.Message);
                 throw ex;
             }
         }

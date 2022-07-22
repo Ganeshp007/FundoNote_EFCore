@@ -109,5 +109,25 @@
             }
         }
 
+        public async Task<bool> UpdateLable(int UserId, int NoteId, int LabelId, string NewLabelName)
+        {
+            try
+            {
+                var label = this.fundoContext.Labels.FirstOrDefault(x => x.LabelId == LabelId && x.UserId == UserId);
+                var check = this.fundoContext.Labels.FirstOrDefault(x => x.NoteId == label.NoteId && x.LabelName == NewLabelName);
+                if (label != null && check == null)
+                {
+                    label.LabelName = NewLabelName;
+                    await this.fundoContext.SaveChangesAsync();
+                    return true;
+                }
+
+                return false;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
     }
 }
