@@ -1,6 +1,7 @@
 ﻿namespace FundoNote_EFCore.Controllers
 {
     using System;
+    using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
     using BusinessLayer.Interface;
@@ -57,7 +58,7 @@
             {
                 var userId = User.Claims.FirstOrDefault(x => x.Type.ToString().Equals("UserId", StringComparison.InvariantCultureIgnoreCase));
                 int UserId = Int32.Parse(userId.Value);
-                var NoteData = await this.noteBL.GetAllNote(UserId);
+                List<GetNoteResponse> NoteData = await this.noteBL.GetAllNote(UserId);
                 if (NoteData.Count == 0)
                 {
                     this.logger.LogError($"No Notes Exists At Moment!! UserId = {userId}");

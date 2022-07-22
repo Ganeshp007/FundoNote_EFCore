@@ -1,9 +1,11 @@
 ﻿namespace FundoNote_EFCore.Controllers
 {
     using System;
+    using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
     using BusinessLayer.Interface;
+    using DatabaseLayer.LabelModels;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using NLogger.Interface;
@@ -70,7 +72,7 @@
             {
                 var userId = User.Claims.FirstOrDefault(x => x.Type.ToString().Equals("UserId", StringComparison.InvariantCultureIgnoreCase));
                 int UserId = Int32.Parse(userId.Value);
-                var NoteData = await this.LabelBL.GetAllLabel(UserId);
+                List<GetAllLabelsModel> NoteData = await this.LabelBL.GetAllLabel(UserId);
                 if (NoteData == null)
                 {
                     this.logger.LogError($"No Labels Exists At Moment!! UserId = {userId}");
@@ -93,7 +95,7 @@
             {
                 var userId = User.Claims.FirstOrDefault(x => x.Type.ToString().Equals("UserId", StringComparison.InvariantCultureIgnoreCase));
                 int UserId = Int32.Parse(userId.Value);
-                var NoteData = await this.LabelBL.GetLabelByNoteId(UserId,NoteId);
+                List<GetAllLabelsModel> NoteData = await this.LabelBL.GetLabelByNoteId(UserId,NoteId);
 
                 if (NoteData == null)
                 {
@@ -137,6 +139,28 @@
                 }
 
                 return this.BadRequest(new { sucess = false, Message = $"Entered Label Name already exsists for LabelId{LabelId}!!" });
+            }
+            catch (Exception ex)
+            {
+                this.logger.LogError(ex.Message);
+                throw ex;
+            }
+        }
+
+        [HttpDelete("DeleteLabel/{LabelId}")]
+        public async Task<IActionResult> DeleteLabel(int LabelId)
+        {
+            try
+            {
+                var userId = User.Claims.FirstOrDefault(x => x.Type.ToString().Equals("UserId", StringComparison.InvariantCultureIgnoreCase));
+                int UserId = int.Parse(userId.Value);
+                bool result = await this.LabelBL.DeleteLabel(UserId, LabelId);
+                if (result)
+                {
+                    return this.Ok(new { sucess = true, Message = $"LabelId {LabelId}  Deleted SuccessFully..." });
+                }
+
+                return this.BadRequest(new { sucess = false, Message = $"LabelId {LabelId} Does not Exists!!" });
             }
             catch (Exception ex)
             {

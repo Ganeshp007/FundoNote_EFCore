@@ -7,7 +7,7 @@
     using DatabaseLayer.LabelModels;
     using RepositoryLayer.Interface;
 
-    public class LabelBL: ILabelBL
+    public class LabelBL : ILabelBL
     {
         ILabelRL labelRL;
 
@@ -57,6 +57,18 @@
             try
             {
                 return await this.labelRL.UpdateLable(UserId,LabelId, NewLabelName);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public async Task<bool> DeleteLabel(int UserId, int LabelId)
+        {
+            try
+            {
+                return await this.labelRL.DeleteLabel(UserId,LabelId);
             }
             catch (Exception ex)
             {

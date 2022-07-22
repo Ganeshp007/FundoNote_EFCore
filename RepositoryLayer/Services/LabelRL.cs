@@ -10,7 +10,7 @@
     using RepositoryLayer.Interface;
     using RepositoryLayer.Services.Entity;
 
-    public class LabelRL: ILabelRL
+    public class LabelRL : ILabelRL
     {
         private readonly FundoContext fundoContext;
         private readonly IConfiguration iconfiguration;
@@ -120,6 +120,26 @@
                 {
                     label.LabelName = NewLabelName;
                     await this.fundoContext.SaveChangesAsync();
+                    return true;
+                }
+
+                return false;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public async Task<bool> DeleteLabel(int UserId, int LabelId)
+        {
+            try
+            {
+                var label = this.fundoContext.Labels.FirstOrDefault(x => x.LabelId == LabelId && x.UserId == UserId);
+                if (label != null)
+                {
+                    this.fundoContext.Remove(label);
+                    this.fundoContext.SaveChanges();
                     return true;
                 }
 

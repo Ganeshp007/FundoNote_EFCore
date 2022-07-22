@@ -109,3 +109,13 @@
 2022-07-22 13:29:41.2398|ERROR|NLogger.Services.LoggerManager|Note Moved To Trash!! NoteId = 3 | UserId = UserId: 1
 2022-07-22 13:29:46.9610|INFO|NLogger.Services.LoggerManager|All Labels Retrieved Successfully NoteId = 1 | UserId = UserId: 1
 2022-07-22 13:30:41.5285|INFO|NLogger.Services.LoggerManager|All Labels Retrieved Successfully NoteId = 1 | UserId = UserId: 1
+2022-07-22 14:50:32.2922|INFO|NLogger.Services.LoggerManager|User Login Successfull : rohan@gmail.com
+2022-07-22 14:50:53.3952|ERROR|NLogger.Services.LoggerManager|No Notes Exists At Moment!! UserId = UserId: 2
+2022-07-22 14:51:27.2324|INFO|NLogger.Services.LoggerManager|Note Created Successfully UserId = UserId: 2
+2022-07-22 14:51:36.3386|INFO|NLogger.Services.LoggerManager|All Notes Retrieved Successfully UserId = UserId: 2
+2022-07-22 14:52:12.2444|ERROR|NLogger.Services.LoggerManager|Note Does not Exixts!! NoteId=2|UserId = 2
+2022-07-22 14:52:26.5124|ERROR|NLogger.Services.LoggerManager|Label Set Successfully for 4|UserId = 2
+2022-07-22 14:53:11.1008|ERROR|NLogger.Services.LoggerManager|Label Set Successfully for 4|UserId = 2
+2022-07-22 14:53:54.7008|INFO|NLogger.Services.LoggerManager|All Labels Retrieved Successfully UserId = UserId: 2
+2022-07-22 14:54:21.6209|ERROR|NLogger.Services.LoggerManager|No Labels Exists At Moment!! NoteId = 1 | UserId = UserId: 2
+2022-07-22 14:54:29.9555|INFO|NLogger.Services.LoggerManager|All Labels Retrieved Successfully NoteId = 4 | UserId = UserId: 2

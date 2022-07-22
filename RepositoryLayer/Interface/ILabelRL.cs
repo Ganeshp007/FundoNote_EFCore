@@ -14,5 +14,8 @@
 
         Task<bool> UpdateLable(int UserId,int LabelId, string NewLabelName);
 
+        Task<bool> DeleteLabel(int UserId, int LabelId);
+
+
     }
 }
