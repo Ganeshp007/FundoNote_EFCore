@@ -42,7 +42,7 @@
         {
             try
             {
-                var label = fundoContext.Labels.FirstOrDefault(l => l.UserId == UserId) ;
+                var label = fundoContext.Labels.FirstOrDefault(l => l.UserId == UserId);
                 if (label == null)
                 {
                     return null;

@@ -3,11 +3,15 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Text;
     using System.Threading.Tasks;
     using BusinessLayer.Interface;
     using DatabaseLayer.NoteModels;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
+    using Microsoft.Extensions.Caching.Distributed;
+    using Microsoft.Extensions.Caching.Memory;
+    using Newtonsoft.Json;
     using NLogger.Interface;
     using RepositoryLayer.Services;
 
@@ -19,12 +23,16 @@
         private readonly ILoggerManager logger;
         private readonly FundoContext fundoContext;
         private readonly INoteBL noteBL;
+        private readonly IDistributedCache distributedCache;
+        private readonly IMemoryCache memoryCache;
 
-        public NoteController(FundoContext fundoContext, INoteBL noteBL, ILoggerManager logger)
+        public NoteController(FundoContext fundoContext, INoteBL noteBL, ILoggerManager logger,IDistributedCache distributedCache,IMemoryCache memoryCache)
         {
             this.fundoContext = fundoContext;
             this.noteBL = noteBL;
             this.logger = logger;
+            this.distributedCache = distributedCache;
+            this.memoryCache = memoryCache;
         }
 
         [HttpPost("AddNote")]
@@ -112,8 +120,8 @@
             {
                 var userId = User.Claims.FirstOrDefault(x => x.Type.ToString().Equals("UserId", StringComparison.InvariantCultureIgnoreCase));
                 int UserId = Int32.Parse(userId.Value);
-                var updateNote = fundoContext.Notes.FirstOrDefault(x => x.NoteId == NoteId);
-                if (updateNote == null || updateNote.IsTrash == true)
+                var updateNote = fundoContext.Notes.FirstOrDefault(x => x.NoteId == NoteId && x.UserId == UserId);
+                if (updateNote == null)
                 {
                     this.logger.LogError($"Note Does Not Exists!! {NoteId}|UserId = {userId}");
                     return this.BadRequest(new { sucess = false, Message = "Note Does not Exists!!" });
@@ -212,7 +220,7 @@
             try
             {
                 var userId = User.Claims.FirstOrDefault(x => x.Type.ToString().Equals("UserId", StringComparison.InvariantCultureIgnoreCase));
-                int UserId = Int32.Parse(userId.Value);
+                int UserId = Convert.ToInt32(userId.Value);
                 var Note = fundoContext.Notes.FirstOrDefault(x => x.NoteId == NoteId);
                 if (Note == null)
                 {
@@ -232,6 +240,38 @@
                     this.logger.LogInfo($"Note Removed from Trash Successfully NoteId={NoteId}|UserId = {userId}");
                     return this.Ok(new { sucess = true, Message = $"NoteId {NoteId} Removed from Trash Successfully..." });
                 }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        [HttpGet("GetAllNoteUsingRedis")]
+        public async Task<IActionResult> GetAllNoteUsingRedis()
+        {
+            try
+            {
+                string CacheKey = "NoteList";
+                string SerializeNoteList;
+                List<GetNoteResponse> notelist = new List<GetNoteResponse>();
+                var redisnotelist = await distributedCache.GetAsync(CacheKey);
+                if (redisnotelist != null)
+                {
+                    SerializeNoteList = Encoding.UTF8.GetString(redisnotelist);
+                    notelist = JsonConvert.DeserializeObject<List<GetNoteResponse>>(SerializeNoteList);
+                }
+                else
+                {
+                    var userid = User.Claims.FirstOrDefault(x => x.Type.ToString().Equals("UserId", StringComparison.InvariantCultureIgnoreCase));
+                    int userId = int.Parse(userid.Value);
+                    notelist = await this.noteBL.GetAllNote(userId);
+                    SerializeNoteList = JsonConvert.SerializeObject(notelist);
+                    redisnotelist = Encoding.UTF8.GetBytes(SerializeNoteList);
+                    var option = new DistributedCacheEntryOptions().SetSlidingExpiration(TimeSpan.FromMinutes(20)).SetAbsoluteExpiration(TimeSpan.FromHours(6));
+                    await distributedCache.SetAsync(CacheKey, redisnotelist, option);
+                }
+                return this.Ok(new { success = true, message = $"Get Note Successful", data = notelist });
             }
             catch (Exception ex)
             {

@@ -119,3 +119,37 @@
 2022-07-22 14:53:54.7008|INFO|NLogger.Services.LoggerManager|All Labels Retrieved Successfully UserId = UserId: 2
 2022-07-22 14:54:21.6209|ERROR|NLogger.Services.LoggerManager|No Labels Exists At Moment!! NoteId = 1 | UserId = UserId: 2
 2022-07-22 14:54:29.9555|INFO|NLogger.Services.LoggerManager|All Labels Retrieved Successfully NoteId = 4 | UserId = UserId: 2
+2022-07-22 15:31:52.5818|INFO|NLogger.Services.LoggerManager|All Notes Retrieved Successfully UserId = UserId: 1
+2022-07-22 15:57:31.5152|INFO|NLogger.Services.LoggerManager|User Login Successfull : rohan@gmail.com
+2022-07-22 15:57:55.9516|INFO|NLogger.Services.LoggerManager|User Login Successfull : rohan@gmail.com
+2022-07-22 16:03:29.8896|INFO|NLogger.Services.LoggerManager|User Login Successfull : ganesh@gmail.com
+2022-07-22 16:17:07.1421|INFO|NLogger.Services.LoggerManager|All Notes Retrieved Successfully UserId = UserId: 1
+2022-07-22 16:17:50.7070|INFO|NLogger.Services.LoggerManager|All Notes Retrieved Successfully UserId = UserId: 1
+2022-07-22 16:19:00.0933|INFO|NLogger.Services.LoggerManager|All Notes Retrieved Successfully UserId = UserId: 1
+2022-07-22 16:19:11.5546|INFO|NLogger.Services.LoggerManager|All Notes Retrieved Successfully UserId = UserId: 1
+2022-07-22 16:19:14.4639|INFO|NLogger.Services.LoggerManager|All Notes Retrieved Successfully UserId = UserId: 1
+2022-07-22 16:19:15.8329|INFO|NLogger.Services.LoggerManager|All Notes Retrieved Successfully UserId = UserId: 1
+2022-07-22 16:19:17.1240|INFO|NLogger.Services.LoggerManager|All Notes Retrieved Successfully UserId = UserId: 1
+2022-07-22 16:33:40.5788|INFO|NLogger.Services.LoggerManager|User Login Successfull : ganesh@gmail.com
+2022-07-22 16:41:38.6245|INFO|NLogger.Services.LoggerManager|User Login Successfull : ganesh@gmail.com
+2022-07-22 16:42:01.3518|INFO|NLogger.Services.LoggerManager|All Notes Retrieved Successfully UserId = UserId: 1
+2022-07-22 16:42:20.2092|INFO|NLogger.Services.LoggerManager|All Labels Retrieved Successfully NoteId = 2 | UserId = UserId: 1
+2022-07-22 16:43:02.4544|INFO|NLogger.Services.LoggerManager|Note Moved to Trash  NoteId:2 | UserId:1
+2022-07-22 16:43:15.0300|INFO|NLogger.Services.LoggerManager|All Notes Retrieved Successfully UserId = UserId: 1
+2022-07-22 16:43:20.5661|ERROR|NLogger.Services.LoggerManager|No Labels Exists At Moment!! NoteId = 2 | UserId = UserId: 1
+2022-07-22 16:53:30.8425|INFO|NLogger.Services.LoggerManager|All Notes Retrieved Successfully UserId = UserId: 1
+2022-07-22 16:54:14.0121|ERROR|NLogger.Services.LoggerManager|Note Does Not Exists!! 2|UserId = UserId: 1
+2022-07-22 16:54:37.4547|ERROR|NLogger.Services.LoggerManager|No Labels Exists At Moment!! NoteId = 2 | UserId = UserId: 1
+2022-07-22 17:05:13.4021|ERROR|NLogger.Services.LoggerManager|No Labels Exists At Moment!! NoteId = 2 | UserId = UserId: 1
+2022-07-22 17:05:32.5908|ERROR|NLogger.Services.LoggerManager|Note Moved To Trash!! NoteId = 3 | UserId = UserId: 1
+2022-07-22 17:05:45.6278|INFO|NLogger.Services.LoggerManager|Note Removed from Trash Successfully NoteId=3|UserId = UserId: 1
+2022-07-22 17:06:20.9530|INFO|NLogger.Services.LoggerManager|All Labels Retrieved Successfully NoteId = 3 | UserId = UserId: 1
+2022-07-22 17:07:23.8019|ERROR|NLogger.Services.LoggerManager|Label Set Successfully for 3|UserId = 1
+2022-07-22 17:07:32.3097|INFO|NLogger.Services.LoggerManager|All Labels Retrieved Successfully NoteId = 3 | UserId = UserId: 1
+2022-07-22 17:08:55.8340|INFO|NLogger.Services.LoggerManager|Note Moved to Trash Successfully NoteId=4|UserId = UserId: 1
+2022-07-22 17:09:04.1766|INFO|NLogger.Services.LoggerManager|Note Removed from Trash Successfully NoteId=4|UserId = UserId: 1
+2022-07-22 17:09:15.5914|ERROR|NLogger.Services.LoggerManager|Note Does Not Exists!! 4|UserId = UserId: 1
+2022-07-22 17:09:32.1052|INFO|NLogger.Services.LoggerManager|All Labels Retrieved Successfully UserId = UserId: 1
+2022-07-22 17:21:05.8459|INFO|NLogger.Services.LoggerManager|User Login Successfull : ganesh@gmail.com
+2022-07-22 17:28:01.8360|INFO|NLogger.Services.LoggerManager|All Labels Retrieved Successfully NoteId = 3 | UserId = UserId: 1
+2022-07-22 17:28:32.5099|INFO|NLogger.Services.LoggerManager|All Labels Retrieved Successfully NoteId = 3 | UserId = UserId: 1
