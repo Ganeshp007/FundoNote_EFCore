@@ -42,14 +42,14 @@
         {
             try
             {
-                var label = fundoContext.Labels.FirstOrDefault(u => u.UserId == UserId);
+                var label = fundoContext.Labels.FirstOrDefault(l => l.UserId == UserId) ;
                 if (label == null)
                 {
                     return null;
                 }
 
                 var res = await (from user in fundoContext.Users
-                                 join notes in fundoContext.Notes on user.UserId equals UserId
+                                 join notes in fundoContext.Notes on user.UserId equals UserId where notes.IsTrash == false
                                  join labels in fundoContext.Labels on notes.NoteId equals labels.NoteId
                                  where labels.UserId == UserId
                                  select new GetAllLabelsModel
@@ -86,8 +86,9 @@
 
                 var res = await (from user in fundoContext.Users
                                  join notes in fundoContext.Notes on user.UserId equals UserId
-                                 where notes.NoteId == NoteId
+                                 where notes.NoteId == NoteId && notes.IsTrash == false
                                  join labels in fundoContext.Labels on notes.NoteId equals labels.NoteId
+                                 where label.UserId==UserId
                                  select new GetAllLabelsModel
                                  {
                                      UserId = user.UserId,
@@ -109,7 +110,7 @@
             }
         }
 
-        public async Task<bool> UpdateLable(int UserId, int NoteId, int LabelId, string NewLabelName)
+        public async Task<bool> UpdateLable(int UserId,int LabelId, string NewLabelName)
         {
             try
             {

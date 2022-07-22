@@ -12,7 +12,7 @@
 
         Task<List<GetAllLabelsModel>> GetLabelByNoteId(int UserId, int NoteId);
 
-        Task<bool> UpdateLable(int UserId, int NoteId, int LabelId, string NewLabelName);
+        Task<bool> UpdateLable(int UserId,int LabelId, string NewLabelName);
 
     }
 }

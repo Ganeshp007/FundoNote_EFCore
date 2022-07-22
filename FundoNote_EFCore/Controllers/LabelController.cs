@@ -94,10 +94,17 @@
                 var userId = User.Claims.FirstOrDefault(x => x.Type.ToString().Equals("UserId", StringComparison.InvariantCultureIgnoreCase));
                 int UserId = Int32.Parse(userId.Value);
                 var NoteData = await this.LabelBL.GetLabelByNoteId(UserId,NoteId);
+
                 if (NoteData == null)
                 {
                     this.logger.LogError($"No Labels Exists At Moment!! NoteId = {NoteId} | UserId = {userId}");
                     return this.BadRequest(new { sucess = false, Message = "You Dont Have Any Notes!!" });
+                }
+
+                if (NoteData.Count==0)
+                {
+                    this.logger.LogError($"Note Moved To Trash!! NoteId = {NoteId} | UserId = {userId}");
+                    return this.BadRequest(new { sucess = false, Message = $"Can not Fetch Label Records as NoteId {NoteId} is in Trash!!" });
                 }
 
                 this.logger.LogInfo($"All Labels Retrieved Successfully NoteId = {NoteId} | UserId = {userId}");
@@ -109,27 +116,21 @@
             }
         }
 
-        [HttpPut("UpdateLabel/{NoteId}/{LabelId}/{NewLabelName}")]
-        public async Task<IActionResult> UpdatedLabel(int NoteId, int LabelId, string NewLabelName)
+        [HttpPut("UpdateLabel/{LabelId}/{NewLabelName}")]
+        public async Task<IActionResult> UpdatedLabel(int LabelId, string NewLabelName)
         {
             try
             {
                 var userId = User.Claims.FirstOrDefault(x => x.Type.ToString().Equals("UserId", StringComparison.InvariantCultureIgnoreCase));
                 int UserId = int.Parse(userId.Value);
-                var Note = fundoContext.Notes.FirstOrDefault(x => x.NoteId == NoteId && x.UserId == UserId);
                 var label = this.fundoContext.Labels.FirstOrDefault(x => x.LabelId == LabelId);
-
-                if (Note == null)
-                {
-                    return this.BadRequest(new { sucess = false, Message = $"NoteId {NoteId} Does not Exists!!!" });
-                }
 
                 if (label == null)
                 {
                     return this.BadRequest(new { sucess = false, Message = $"LabelId {LabelId} Does Not Exists!!" });
                 }
 
-                bool result = await this.LabelBL.UpdateLable(UserId, NoteId, LabelId, NewLabelName);
+                bool result = await this.LabelBL.UpdateLable(UserId,LabelId, NewLabelName);
                 if (result)
                 {
                     return this.Ok(new { sucess = true, Message = $"Updated Label {LabelId} Successfully..." });

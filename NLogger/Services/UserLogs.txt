@@ -99,3 +99,13 @@
 2022-07-22 10:34:21.2365|INFO|NLogger.Services.LoggerManager|All Labels Retrieved Successfully NoteId = 1 | UserId = UserId: 1
 2022-07-22 10:41:20.0001|INFO|NLogger.Services.LoggerManager|All Labels Retrieved Successfully NoteId = 1 | UserId = UserId: 1
 2022-07-22 10:42:30.9221|INFO|NLogger.Services.LoggerManager|All Labels Retrieved Successfully NoteId = 1 | UserId = UserId: 1
+2022-07-22 10:49:41.8835|INFO|NLogger.Services.LoggerManager|Note Moved to Trash Successfully NoteId=3|UserId = UserId: 1
+2022-07-22 10:49:55.9382|INFO|NLogger.Services.LoggerManager|All Labels Retrieved Successfully UserId = UserId: 1
+2022-07-22 10:56:28.0840|INFO|NLogger.Services.LoggerManager|All Labels Retrieved Successfully UserId = UserId: 1
+2022-07-22 11:01:54.3045|INFO|NLogger.Services.LoggerManager|All Labels Retrieved Successfully UserId = UserId: 1
+2022-07-22 11:06:02.4483|INFO|NLogger.Services.LoggerManager|All Labels Retrieved Successfully NoteId = 3 | UserId = UserId: 1
+2022-07-22 11:10:37.5310|ERROR|NLogger.Services.LoggerManager|Note Moved To Trash!! NoteId = 3 | UserId = UserId: 1
+2022-07-22 13:28:18.3650|INFO|NLogger.Services.LoggerManager|User Login Successfull : ganesh@gmail.com
+2022-07-22 13:29:41.2398|ERROR|NLogger.Services.LoggerManager|Note Moved To Trash!! NoteId = 3 | UserId = UserId: 1
+2022-07-22 13:29:46.9610|INFO|NLogger.Services.LoggerManager|All Labels Retrieved Successfully NoteId = 1 | UserId = UserId: 1
+2022-07-22 13:30:41.5285|INFO|NLogger.Services.LoggerManager|All Labels Retrieved Successfully NoteId = 1 | UserId = UserId: 1

@@ -52,11 +52,11 @@
             }
         }
 
-        public async Task<bool> UpdateLable(int UserId, int NoteId, int LabelId, string NewLabelName)
+        public async Task<bool> UpdateLable(int UserId,int LabelId, string NewLabelName)
         {
             try
             {
-                return await this.labelRL.UpdateLable(UserId, NoteId, LabelId, NewLabelName);
+                return await this.labelRL.UpdateLable(UserId,LabelId, NewLabelName);
             }
             catch (Exception ex)
             {
