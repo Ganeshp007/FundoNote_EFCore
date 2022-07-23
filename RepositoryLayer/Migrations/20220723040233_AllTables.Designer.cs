@@ -10,7 +10,7 @@ using RepositoryLayer.Services;
 namespace RepositoryLayer.Migrations
 {
     [DbContext(typeof(FundoContext))]
-    [Migration("20220720172658_AllTables")]
+    [Migration("20220723040233_AllTables")]
     partial class AllTables
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
