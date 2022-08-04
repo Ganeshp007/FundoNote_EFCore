@@ -57,9 +57,9 @@
                                      UserId = user.UserId,
                                      NoteId = notes.NoteId,
                                      LabelId = labels.LabelId,
+                                     LabelName = labels.LabelName,
                                      Title = notes.Title,
                                      Description = notes.Description,
-                                     LabelName = labels.LabelName,
                                      FirstName = user.Firstname,
                                      LastName = user.Lastname,
                                      Email = user.Email,
@@ -94,9 +94,9 @@
                                      UserId = user.UserId,
                                      NoteId = notes.NoteId,
                                      LabelId = labels.LabelId,
+                                     LabelName = labels.LabelName,
                                      Title = notes.Title,
                                      Description = notes.Description,
-                                     LabelName = labels.LabelName,
                                      FirstName = user.Firstname,
                                      LastName = user.Lastname,
                                      Email = user.Email,
@@ -144,6 +144,42 @@
                 }
 
                 return false;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public async Task<List<GetAllLabelsModel>> GetLabelByLabelId(int UserId, int LabelId)
+        {
+            try
+            {
+                var label = fundoContext.Labels.FirstOrDefault(u => u.UserId == UserId && u.LabelId == LabelId);
+                var NoteId = label.NoteId;
+                if (label == null)
+                {
+                    return null;
+                }
+
+                var res = await (from user in fundoContext.Users
+                                 join notes in fundoContext.Notes on user.UserId equals UserId
+                                 where notes.NoteId == NoteId && notes.IsTrash == false
+                                 join labels in fundoContext.Labels on notes.NoteId equals labels.NoteId
+                                 where label.UserId == UserId && labels.LabelId == LabelId
+                                 select new GetAllLabelsModel
+                                 {
+                                     UserId = user.UserId,
+                                     NoteId = notes.NoteId,
+                                     LabelId = labels.LabelId,
+                                     LabelName = labels.LabelName,
+                                     Title = notes.Title,
+                                     Description = notes.Description,
+                                     FirstName = user.Firstname,
+                                     LastName = user.Lastname,
+                                     Email = user.Email,
+                                 }).ToListAsync();
+                return res;
             }
             catch (Exception ex)
             {

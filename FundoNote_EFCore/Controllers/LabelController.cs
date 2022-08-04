@@ -215,5 +215,29 @@
                 throw ex;
             }
         }
+
+        [HttpGet("GetAllLabelByLabelId/{LabelId}")]
+        public async Task<IActionResult> GetAllLabelByLabelId(int LabelId)
+        {
+            try
+            {
+                var userId = User.Claims.FirstOrDefault(x => x.Type.ToString().Equals("UserId", StringComparison.InvariantCultureIgnoreCase));
+                int UserId = Int32.Parse(userId.Value);
+                List<GetAllLabelsModel> NoteData = await this.LabelBL.GetLabelByLabelId(UserId, LabelId);
+
+                if (NoteData == null)
+                {
+                    this.logger.LogError($"No Labels Exists At Moment!! Id = {LabelId} | UserId = {userId}");
+                    return this.BadRequest(new { sucess = false, Message = $"You Dont Have Any Labels for LabelId {LabelId}!!" });
+                }
+
+                this.logger.LogInfo($"Label Retrieved Successfully LabelId = {LabelId} | UserId = {userId}");
+                return this.Ok(new { sucess = true, Message = $"LabelId {LabelId} Data Retrieved successfully...", data = NoteData });
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
     }
 }

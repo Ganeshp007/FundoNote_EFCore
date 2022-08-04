@@ -16,6 +16,7 @@
 
         Task<bool> DeleteLabel(int UserId, int LabelId);
 
+        Task<List<GetAllLabelsModel>> GetLabelByLabelId(int UserId, int LabelId);
 
     }
 }

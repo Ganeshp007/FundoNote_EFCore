@@ -33,11 +33,21 @@ namespace FundoNote_EFCore
 
         public IConfiguration Configuration { get; }
 
+        readonly string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
             services.AddMemoryCache();
+            services.AddCors(options =>
+            {
+                options.AddPolicy(MyAllowSpecificOrigins,
+                builder =>
+                {
+                    builder.WithOrigins("http://localhost:4200").AllowAnyHeader().AllowAnyMethod();
+                });
+            });
             services.AddDbContext<FundoContext>(options => options.UseSqlServer(Configuration.GetConnectionString("fundonote")));
             services.AddAuthentication(x =>
             {
@@ -55,6 +65,7 @@ namespace FundoNote_EFCore
                     ValidateAudience = false,
 
                 };
+
             });
             services.AddSwaggerGen(
               setup =>
@@ -108,6 +119,7 @@ namespace FundoNote_EFCore
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseCors(MyAllowSpecificOrigins);
             app.UseHttpsRedirection();
             app.UseRouting();
             app.UseAuthentication();

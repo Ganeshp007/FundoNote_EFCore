@@ -75,5 +75,17 @@
                 throw ex;
             }
         }
+
+        public async Task<List<GetAllLabelsModel>> GetLabelByLabelId(int UserId, int LabelId)
+        {
+            try
+            {
+                return await this.labelRL.GetLabelByLabelId(UserId, LabelId);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
     }
 }

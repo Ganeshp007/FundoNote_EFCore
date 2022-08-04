@@ -153,3 +153,37 @@
 2022-07-22 17:21:05.8459|INFO|NLogger.Services.LoggerManager|User Login Successfull : ganesh@gmail.com
 2022-07-22 17:28:01.8360|INFO|NLogger.Services.LoggerManager|All Labels Retrieved Successfully NoteId = 3 | UserId = UserId: 1
 2022-07-22 17:28:32.5099|INFO|NLogger.Services.LoggerManager|All Labels Retrieved Successfully NoteId = 3 | UserId = UserId: 1
+2022-07-23 11:59:07.8584|INFO|NLogger.Services.LoggerManager|User Login Successfull : ganesh@gmail.com
+2022-07-23 12:02:58.8960|INFO|NLogger.Services.LoggerManager|Label Retrieved Successfully LabelId = 2 | UserId = UserId: 1
+2022-07-23 12:04:37.6113|INFO|NLogger.Services.LoggerManager|User Login Successfull : ganesh@gmail.com
+2022-07-23 12:05:05.2650|ERROR|NLogger.Services.LoggerManager|No Labels Exists At Moment!! Id = 1 | UserId = UserId: 1
+2022-07-23 12:05:16.3047|INFO|NLogger.Services.LoggerManager|Label Retrieved Successfully LabelId = 2 | UserId = UserId: 1
+2022-07-23 12:21:11.3652|INFO|NLogger.Services.LoggerManager|User Login Successfull : ganesh@gmail.com
+2022-07-23 12:21:40.8250|INFO|NLogger.Services.LoggerManager|Label Retrieved Successfully LabelId = 2 | UserId = UserId: 1
+2022-07-23 15:34:02.3294|INFO|NLogger.Services.LoggerManager|User Login Successfull : ganesh@gmail.com
+2022-07-23 15:36:06.6960|ERROR|NLogger.Services.LoggerManager|Label Set Successfully for 2|UserId = 1
+2022-07-23 15:37:53.8315|ERROR|NLogger.Services.LoggerManager|No Labels Exists At Moment!! Id = 3 | UserId = UserId: 1
+2022-07-23 15:38:14.2392|INFO|NLogger.Services.LoggerManager|Label Retrieved Successfully LabelId = 2 | UserId = UserId: 1
+2022-07-23 15:41:13.1410|ERROR|NLogger.Services.LoggerManager|No Labels Exists At Moment!! Id = 3 | UserId = UserId: 1
+2022-07-23 15:42:08.7445|ERROR|NLogger.Services.LoggerManager|No Labels Exists At Moment!! Id = 3 | UserId = UserId: 1
+2022-07-23 15:43:58.7200|INFO|NLogger.Services.LoggerManager|Label Retrieved Successfully LabelId = 3 | UserId = UserId: 1
+2022-07-23 15:45:12.9701|INFO|NLogger.Services.LoggerManager|Label Retrieved Successfully LabelId = 3 | UserId = UserId: 1
+2022-07-23 15:46:35.0113|INFO|NLogger.Services.LoggerManager|Label Retrieved Successfully LabelId = 2 | UserId = UserId: 1
+2022-07-23 15:47:56.9421|INFO|NLogger.Services.LoggerManager|Label Retrieved Successfully LabelId = 2 | UserId = UserId: 1
+2022-07-23 15:48:08.9344|INFO|NLogger.Services.LoggerManager|Label Retrieved Successfully LabelId = 3 | UserId = UserId: 1
+2022-07-23 15:52:40.9748|ERROR|NLogger.Services.LoggerManager|Label Set Successfully for 1|UserId = 1
+2022-07-23 15:53:06.2523|ERROR|NLogger.Services.LoggerManager|Label Set Successfully for 2|UserId = 1
+2022-07-23 15:53:20.5309|ERROR|NLogger.Services.LoggerManager|Label Set Successfully for 1|UserId = 1
+2022-07-23 15:53:44.9546|INFO|NLogger.Services.LoggerManager|All Labels Retrieved Successfully UserId = UserId: 1
+2022-07-23 15:54:24.0671|ERROR|NLogger.Services.LoggerManager|No Labels Exists At Moment!! NoteId = 3 | UserId = UserId: 1
+2022-07-23 15:54:40.1504|INFO|NLogger.Services.LoggerManager|All Labels Retrieved Successfully NoteId = 2 | UserId = UserId: 1
+2022-07-23 15:55:29.9533|INFO|NLogger.Services.LoggerManager|All Labels Retrieved Successfully NoteId = 1 | UserId = UserId: 1
+2022-07-23 15:56:14.2168|INFO|NLogger.Services.LoggerManager|All Labels Retrieved Successfully NoteId = 1 | UserId = UserId: 1
+2022-07-23 15:56:31.5143|INFO|NLogger.Services.LoggerManager|Label Retrieved Successfully LabelId = 3 | UserId = UserId: 1
+2022-08-04 17:49:15.4195|INFO|NLogger.Services.LoggerManager|User Data Retrieved Succesfully...
+2022-08-04 22:27:25.2663|INFO|NLogger.Services.LoggerManager|User Data Retrieved Succesfully...
+2022-08-04 22:37:23.3294|INFO|NLogger.Services.LoggerManager|User Data Retrieved Succesfully...
+2022-08-04 22:43:17.3676|INFO|NLogger.Services.LoggerManager|User Data Retrieved Succesfully...
+2022-08-04 22:45:12.6754|INFO|NLogger.Services.LoggerManager|User Regestration Successfull with Email: vinay@gmail.com
+2022-08-04 22:45:31.4929|INFO|NLogger.Services.LoggerManager|User Data Retrieved Succesfully...
+2022-08-04 23:47:24.7590|INFO|NLogger.Services.LoggerManager|User Data Retrieved Succesfully...
