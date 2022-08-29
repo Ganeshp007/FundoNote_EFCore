@@ -45,7 +45,7 @@ namespace FundoNote_EFCore
                 options.AddPolicy(MyAllowSpecificOrigins,
                 builder =>
                 {
-                    builder.WithOrigins("http://localhost:4200").AllowAnyHeader().AllowAnyMethod();
+                    builder.WithOrigins("http://localhost:4200", "http://127.0.0.1:5500", "http://127.0.0.1:5501").AllowAnyHeader().AllowAnyMethod();
                 });
             });
             services.AddDbContext<FundoContext>(options => options.UseSqlServer(Configuration.GetConnectionString("fundonote")));

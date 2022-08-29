@@ -54,11 +54,11 @@
             }
         }
 
-        public async Task DeleteNote(int UserId, int NoteId)
+        public async Task<bool> DeleteNote(int UserId, int NoteId)
         {
             try
             {
-                await this.noteRL.DeleteNote(UserId, NoteId);
+                return await this.noteRL.DeleteNote(UserId, NoteId);
             }
             catch (Exception ex)
             {
@@ -66,11 +66,11 @@
             }
         }
 
-        public async Task ArchiveNote(int UserId, int NoteId)
+        public async Task<bool> ArchiveNote(int UserId, int NoteId)
         {
             try
             {
-                await this.noteRL.ArchiveNote(UserId, NoteId);
+               return await this.noteRL.ArchiveNote(UserId, NoteId);
             }
             catch (Exception ex)
             {
@@ -78,11 +78,11 @@
             }
         }
 
-        public async Task PinNote(int UserId, int NoteId)
+        public async Task<bool> PinNote(int UserId, int NoteId)
         {
             try
             {
-                await this.noteRL.PinNote(UserId, NoteId);
+                return await this.noteRL.PinNote(UserId, NoteId);
             }
             catch (Exception ex)
             {
@@ -90,11 +90,11 @@
             }
         }
 
-        public async Task TrashNote(int UserId, int NoteId)
+        public async Task<bool> TrashNote(int UserId, int NoteId)
         {
             try
             {
-                await this.noteRL.TrashNote(UserId, NoteId);
+                return await this.noteRL.TrashNote(UserId, NoteId);
             }
             catch (Exception ex)
             {
@@ -107,6 +107,18 @@
             try
             {
                 return await this.noteRL.ReminderNote(UserId, NoteId, Reminder);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public async Task<bool> UpdateBgcolor(int NoteId, string Bgcolor)
+        {
+            try
+            {
+                return await this.noteRL.UpdateBgcolor(NoteId,Bgcolor);
             }
             catch (Exception ex)
             {

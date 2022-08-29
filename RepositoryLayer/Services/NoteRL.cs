@@ -48,7 +48,7 @@
             {
                 return await fundoContext.Users
                .Where(u => u.UserId == UserId)
-               .Join(fundoContext.Notes.Where(r=> r.IsTrash==false),
+               .Join(fundoContext.Notes.Where(n=>n.UserId==UserId),
                u => u.UserId,
                n => n.UserId,
                (u, n) => new GetNoteResponse
@@ -61,7 +61,11 @@
                    Firstname = u.Firstname,
                    Lasttname = u.Lastname,
                    Email = u.Email,
-                   CreatedDate = u.CreateDate
+                   CreatedDate = u.CreateDate,
+                   IsPin=n.IsPin,
+                   IsArchive = n.IsArchive,
+                   IsReminder = n.IsRemainder,
+                   IsTrash = n.IsTrash,
                }).ToListAsync();
             }
             catch (Exception ex)
@@ -94,13 +98,19 @@
             }
         }
 
-        public async Task DeleteNote(int userId, int noteId)
+        public async Task<bool> DeleteNote(int userId, int noteId)
         {
             try
             {
-                var DeleteNote = fundoContext.Notes.FirstOrDefault(x => x.NoteId == noteId);
-                DeleteNote.IsTrash = true;
-                await this.fundoContext.SaveChangesAsync();
+                var Note = fundoContext.Notes.FirstOrDefault(x => x.NoteId == noteId);
+                fundoContext.Remove(Note);
+                int result = await this.fundoContext.SaveChangesAsync();
+                if (result > 0)
+                {
+                    return true;
+                }
+
+                return false;
             }
             catch (Exception ex)
             {
@@ -108,24 +118,27 @@
             }
         }
 
-        public async Task ArchiveNote(int userId, int noteId)
+        public async Task<bool> ArchiveNote(int userId, int noteId)
         {
             try
             {
                 var note = fundoContext.Notes.FirstOrDefault(x => x.NoteId == noteId);
-                if (note != null && note.IsTrash == false)
+                if (note != null)
                 {
                     if (note.IsArchive == false)
                     {
                         note.IsArchive = true;
+                        await this.fundoContext.SaveChangesAsync();
+                        return true;
                     }
                     else
                     {
                         note.IsArchive = false;
+                        await this.fundoContext.SaveChangesAsync();
                     }
                 }
 
-                await this.fundoContext.SaveChangesAsync();
+                return false;
             }
             catch (Exception ex)
             {
@@ -133,24 +146,27 @@
             }
         }
 
-        public async Task PinNote(int userId, int noteId)
+        public async Task<bool> PinNote(int userId, int noteId)
         {
             try
             {
                 var note = fundoContext.Notes.FirstOrDefault(x => x.NoteId == noteId);
-                if (note != null && note.IsTrash == false)
+                if (note != null)
                 {
                     if (note.IsPin == false)
                     {
                         note.IsPin = true;
+                        await this.fundoContext.SaveChangesAsync();
+                        return true;
                     }
                     else
                     {
                         note.IsPin = false;
+                        await this.fundoContext.SaveChangesAsync();
                     }
                 }
 
-                await this.fundoContext.SaveChangesAsync();
+                return false;
             }
             catch (Exception ex)
             {
@@ -163,7 +179,7 @@
             try
             {
                 var ReminderNoteResult = fundoContext.Notes.Where(x => x.NoteId == noteId && x.UserId == userId).FirstOrDefault();
-                if (ReminderNoteResult != null && ReminderNoteResult.IsRemainder==false)
+                if (ReminderNoteResult != null && ReminderNoteResult.IsRemainder == false)
                 {
                     ReminderNoteResult.IsRemainder = true;
                     ReminderNoteResult.Remainder = Reminder;
@@ -184,7 +200,7 @@
         }
 
 
-        public async Task TrashNote(int userId, int noteId)
+        public async Task<bool> TrashNote(int userId, int noteId)
         {
             try
             {
@@ -194,14 +210,37 @@
                     if (note.IsTrash == false)
                     {
                         note.IsTrash = true;
+                        await this.fundoContext.SaveChangesAsync();
+                        return true;
                     }
                     else
                     {
                         note.IsTrash = false;
+                        await this.fundoContext.SaveChangesAsync();
                     }
                 }
 
-                await this.fundoContext.SaveChangesAsync();
+                return false;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public async Task<bool> UpdateBgcolor(int NoteId, string Bgcolor)
+        {
+            try
+            {
+                var note = fundoContext.Notes.FirstOrDefault(x => x.NoteId == NoteId);
+                note.Bgcolor = Bgcolor;
+                var result = fundoContext.SaveChangesAsync();
+                if (result != null)
+                {
+                   return true;
+                }
+
+                return false;
             }
             catch (Exception ex)
             {

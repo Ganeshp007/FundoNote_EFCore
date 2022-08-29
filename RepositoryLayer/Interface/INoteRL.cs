@@ -14,14 +14,16 @@
 
         Task UpdateNote(int UserId, int NoteId, UpdateNoteModel updateNoteModel);
 
-        Task DeleteNote(int UserId, int NoteId);
+        Task<bool> DeleteNote(int UserId, int NoteId);
 
-        Task ArchiveNote(int UserId,int NoteId);
+        Task<bool> ArchiveNote(int UserId,int NoteId);
 
-        Task PinNote(int UserId,int NoteId);
+        Task<bool> PinNote(int UserId,int NoteId);
 
         Task<string> ReminderNote(int UserId, int NoteId, DateTime Reminder);
 
-        Task TrashNote(int UserId,int NoteId);
+        Task<bool> TrashNote(int UserId,int NoteId);
+
+        Task<bool> UpdateBgcolor(int NoteId, string Bgcolor);
     }
 }

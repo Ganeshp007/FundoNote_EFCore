@@ -41,16 +41,16 @@
             try
             {
                 var userId = User.Claims.FirstOrDefault(x => x.Type.ToString().Equals("UserId", StringComparison.InvariantCultureIgnoreCase));
-                int UserId = Int32.Parse(userId.Value);
+                int UserId = int.Parse(userId.Value);
 
-                if (notePostModel.Title == "" || notePostModel.Title == "string" && notePostModel.Description == "string" && notePostModel.Bgcolor == "string")
+                if (notePostModel.Title == "string" || (notePostModel.Title == "string" && notePostModel.Description == "string" && notePostModel.Bgcolor == "string"))
                 {
                     this.logger.LogError($"Please Provide Valid Inputs!!");
                     return this.BadRequest(new { sucess = false, Message = "Please Provide Valid Fields for Note!!" });
                 }
 
                 await this.noteBL.AddNote(UserId, notePostModel);
-                this.logger.LogInfo($"Note Created Successfully UserId = {userId}");
+                this.logger.LogInfo($"Note Created Successfully UserId = {UserId}");
                 return Ok(new { sucess = true, Message = "Note Created Successfully..." });
             }
             catch (Exception ex)
@@ -59,7 +59,7 @@
             }
         }
 
-        [HttpGet("GetALlNote")]
+        [HttpGet("GetAllNote")]
         public async Task<IActionResult> GetAllNote()
         {
             try
@@ -69,11 +69,11 @@
                 List<GetNoteResponse> NoteData = await this.noteBL.GetAllNote(UserId);
                 if (NoteData.Count == 0)
                 {
-                    this.logger.LogError($"No Notes Exists At Moment!! UserId = {userId}");
+                    this.logger.LogError($"No Notes Exists At Moment!! UserId = {UserId}");
                     return this.BadRequest(new { sucess = false, Message = "You Dont Have Any Notes!!" });
                 }
 
-                this.logger.LogInfo($"All Notes Retrieved Successfully UserId = {userId}");
+                this.logger.LogInfo($"All Notes Retrieved Successfully UserId = {UserId}");
                 return this.Ok(new { sucess = true, Message = "Notes Data Retrieved successfully...", data = NoteData });
             }
             catch (Exception ex)
@@ -93,18 +93,18 @@
 
                 if (updateNote == null || updateNote.IsTrash == true)
                 {
-                    this.logger.LogError($"Note Does not Exixts!! NoteId={NoteId}|UserId = {userId}");
+                    this.logger.LogError($"Note Does not Exixts!! NoteId={NoteId}|UserId = {UserId}");
                     return this.BadRequest(new { sucess = false, Message = "Note Does not Exists!!" });
                 }
 
-                if (updateNoteModel.Title == "" || updateNoteModel.Title == "string" && updateNoteModel.Description == "string" && updateNoteModel.Bgcolor == "string")
+                if (updateNoteModel.Title == "string" || updateNoteModel.Title == "string" && updateNoteModel.Description == "string" && updateNoteModel.Bgcolor == "string")
                 {
-                    this.logger.LogError($"Please Provide Valid Inputs!! {NoteId}|UserId = {userId}");
+                    this.logger.LogError($"Please Provide Valid Inputs!! {NoteId}|UserId = {UserId}");
                     return this.BadRequest(new { sucess = false, Message = "Please Provide Valid Fields for Note!!" });
                 }
 
                 await this.noteBL.UpdateNote(UserId, NoteId, updateNoteModel);
-                this.logger.LogInfo($"Note Updated Successfully NoteId={NoteId}|UserId = {userId}");
+                this.logger.LogInfo($"Note Updated Successfully NoteId={NoteId}|UserId = {UserId}");
                 return Ok(new { sucess = true, Message = $"NoteId {NoteId} Updated Successfully..." });
             }
             catch (Exception ex)
@@ -120,16 +120,24 @@
             {
                 var userId = User.Claims.FirstOrDefault(x => x.Type.ToString().Equals("UserId", StringComparison.InvariantCultureIgnoreCase));
                 int UserId = Int32.Parse(userId.Value);
-                var updateNote = fundoContext.Notes.FirstOrDefault(x => x.NoteId == NoteId && x.UserId == UserId);
-                if (updateNote == null)
+                var Note = fundoContext.Notes.FirstOrDefault(x => x.NoteId == NoteId && x.UserId == UserId);
+                if (Note == null)
                 {
-                    this.logger.LogError($"Note Does Not Exists!! {NoteId}|UserId = {userId}");
+                    this.logger.LogError($"Note Does Not Exists!! {NoteId}|UserId = {UserId}");
                     return this.BadRequest(new { sucess = false, Message = "Note Does not Exists!!" });
                 }
 
-                await this.noteBL.DeleteNote(UserId, NoteId);
-                this.logger.LogInfo($"Note Moved to Trash  NoteId:{NoteId} | UserId:{UserId}");
-                return Ok(new { success = true, Message = $"NoteId : {NoteId} Moved to Trash SuccessFully..." });
+                bool result = await this.noteBL.DeleteNote(UserId, NoteId);
+                if (result)
+                {
+                    this.logger.LogInfo($"Note Deleted Sucessfully  NoteId:{NoteId} | UserId:{UserId}");
+                    return this.Ok(new { success = true, Message = $"NoteId : {NoteId} deleted successFully..." });
+                }
+                else
+                {
+                    this.logger.LogInfo($"Note Delete Unsucessfull  NoteId:{NoteId} | UserId:{UserId}");
+                    return Ok(new { success = true, Message = $"NoteId : {NoteId} Delete UnsccessFully..." });
+                }
             }
             catch (Exception ex)
             {
@@ -148,13 +156,21 @@
                 var updateNote = fundoContext.Notes.FirstOrDefault(x => x.NoteId == NoteId);
                 if (updateNote == null || updateNote.IsTrash == true)
                 {
-                    this.logger.LogError($"Note Does Not Exists!! {NoteId}|UserId = {userId}");
+                    this.logger.LogError($"Note Does Not Exists!! {NoteId}|UserId = {UserId}");
                     return this.BadRequest(new { sucess = false, Message = "Note Does not Exists!!" });
                 }
 
-                await this.noteBL.PinNote(UserId, NoteId);
-                this.logger.LogInfo($"Note Pinned Successfully NoteId={NoteId}|UserId = {userId}");
-                return this.Ok(new { sucess = true, Message = $"NoteId {NoteId} Pinned Successfully..." });
+                bool result = await this.noteBL.PinNote(UserId, NoteId);
+                if (result)
+                {
+                    this.logger.LogInfo($"Note Pinned Successfully NoteId={NoteId}|UserId = {UserId}");
+                    return this.Ok(new { sucess = true, Message = $"NoteId {NoteId} Pinned Successfully..." });
+                }
+                else
+                {
+                    this.logger.LogInfo($"Note Unpinned Successfully NoteId={NoteId}|UserId = {UserId}");
+                    return this.Ok(new { sucess = true, Message = $"NoteId {NoteId} Unpinned Successfully..." });
+                }
             }
             catch (Exception ex)
             {
@@ -169,16 +185,24 @@
             {
                 var userId = User.Claims.FirstOrDefault(x => x.Type.ToString().Equals("UserId", StringComparison.InvariantCultureIgnoreCase));
                 int UserId = Int32.Parse(userId.Value);
-                var updateNote = fundoContext.Notes.FirstOrDefault(x => x.NoteId == NoteId);
-                if (updateNote == null || updateNote.IsTrash == true)
+                var note = fundoContext.Notes.FirstOrDefault(x => x.NoteId == NoteId);
+                if (note == null || note.IsTrash == true)
                 {
-                    this.logger.LogError($"Note Does Not Exists!! {NoteId}|UserId = {userId}");
+                    this.logger.LogError($"Note Does Not Exists!! {NoteId}|UserId = {UserId}");
                     return this.BadRequest(new { sucess = false, Message = "Note Does not Exists!!" });
                 }
 
-                await this.noteBL.ArchiveNote(UserId, NoteId);
-                this.logger.LogInfo($"Note Archived Successfully NoteId={NoteId}|UserId = {userId}");
-                return this.Ok(new { sucess = true, Message = $"NoteId {NoteId} Archived Successfully..." });
+                bool result = await this.noteBL.ArchiveNote(UserId, NoteId);
+                if (result)
+                {
+                    this.logger.LogInfo($"Note Archived Successfully NoteId={NoteId}|UserId = {UserId}");
+                    return this.Ok(new { sucess = true, Message = $"NoteId {NoteId} Archived Successfully..." });
+                }
+                else
+                {
+                    this.logger.LogInfo($"Note Removed from Archived Successfully... NoteId={NoteId}|UserId = {UserId}");
+                    return this.Ok(new { sucess = true, Message = $"NoteId {NoteId} removed Archived Successfully..." });
+                }
             }
             catch (Exception ex)
             {
@@ -193,19 +217,27 @@
             try
             {
                 var currentUser = HttpContext.User;
-                int userId = Convert.ToInt32(currentUser.Claims.FirstOrDefault(c => c.Type == "UserId").Value);
+                int userId = Convert.ToInt32(currentUser.Claims.FirstOrDefault(c => c.Type == "UserId").Value); //another way to claim id and give its value no need to parse
                 var reminder = Convert.ToDateTime(reminderNoteModel.Reminder);
-                var result = await this.noteBL.ReminderNote(userId, NoteId, reminder);
-
-                if (result != null)
+                var note = fundoContext.Notes.FirstOrDefault(x => x.NoteId == NoteId && x.IsTrash == false);
+                if (note != null)
                 {
-                    this.logger.LogInfo($"Note Reminder Set Successfully  NoteId={NoteId}|UserId = {userId}");
-                    return this.Ok(new { status = 200, success = true, message = result });
+                    var result = await this.noteBL.ReminderNote(userId, NoteId, reminder);
+                    if (result != null)
+                    {
+                        this.logger.LogInfo($"Note Reminder Set Successfully  NoteId={NoteId}|UserId = {userId}");
+                        return this.Ok(new { status = 200, success = true, message = result });
+                    }
+                    else
+                    {
+                        this.logger.LogError($"Note Reminder removed Sucessfully... {NoteId}|UserId = {userId}");
+                        return this.Ok(new { success = false, Message = $"Reminder removed sucessfully NoteId {NoteId}..." });
+                    }
                 }
                 else
                 {
-                    this.logger.LogError($"Note Reminder Set UnSuccessfull!! {NoteId}|UserId = {userId}");
-                    return this.BadRequest(new { success = false, Message = $"NoteId {NoteId} Reminder set Failed!!" });
+                    this.logger.LogError($"Note Does Not Exists!! {NoteId}|UserId = {userId}");
+                    return this.BadRequest(new { sucess = false, Message = "Note Does not Exists!!" });
                 }
             }
             catch (Exception ex)
@@ -224,21 +256,53 @@
                 var Note = fundoContext.Notes.FirstOrDefault(x => x.NoteId == NoteId);
                 if (Note == null)
                 {
-                    this.logger.LogError($"Note Does Not Exists!! {NoteId}|UserId = {userId}");
+                    this.logger.LogError($"Note Does Not Exists!! {NoteId}|UserId = {UserId}");
                     return this.BadRequest(new { sucess = false, Message = "Note Does not Exists!!" });
                 }
 
                 await this.noteBL.TrashNote(UserId, NoteId);
-
-                if(Note.IsTrash==true)
+                var note = fundoContext.Notes.FirstOrDefault(x => x.NoteId == NoteId);
+                if (note.IsTrash == true)
                 {
-                    this.logger.LogInfo($"Note Moved to Trash Successfully NoteId={NoteId}|UserId = {userId}");
+                    this.logger.LogInfo($"Note Moved to Trash Successfully NoteId={NoteId}|UserId = {UserId}");
                     return this.Ok(new { sucess = true, Message = $"NoteId {NoteId} Moved to Trash Successfully..." });
                 }
                 else
                 {
-                    this.logger.LogInfo($"Note Removed from Trash Successfully NoteId={NoteId}|UserId = {userId}");
+                    this.logger.LogInfo($"Note Removed from Trash Successfully NoteId={NoteId}|UserId = {UserId}");
                     return this.Ok(new { sucess = true, Message = $"NoteId {NoteId} Removed from Trash Successfully..." });
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        [HttpPut("UpdateBgcolor/{NoteId}/{bgcolor}")]
+        public async Task<IActionResult> UpdateBgcolor(int NoteId,string bgcolor)
+        {
+            try
+            {
+                var userId = User.Claims.FirstOrDefault(x => x.Type.ToString().Equals("UserId", StringComparison.InvariantCultureIgnoreCase));
+                int UserId = Convert.ToInt32(userId.Value);
+                var Note = fundoContext.Notes.FirstOrDefault(x => x.NoteId == NoteId && x.IsTrash == false);
+                if (Note == null)
+                {
+                    this.logger.LogError($"Note Does Not Exists!! {NoteId}|UserId = {UserId}");
+                    return this.BadRequest(new { sucess = false, Message = "Note Does not Exists!!" });
+                }
+
+                bool result = await this.noteBL.UpdateBgcolor(NoteId, bgcolor);
+                if (result == true)
+                {
+                    this.logger.LogInfo($"Note Bgcolor changed Successfully NoteId={NoteId}|UserId = {UserId}");
+                    return this.Ok(new { sucess = true, Message = $"Note Bgcolor changed Successfully NoteId={NoteId}|UserId = {UserId}" });
+                }
+                else
+                {
+                    this.logger.LogInfo($"Note Bgcolor change Unsuccessfull NoteId={NoteId}|UserId = {UserId}");
+                    return this.Ok(new { sucess = true, Message = $"Note Bgcolor Change Unsuccessfull NoteId={NoteId}|UserId = {UserId}" });
                 }
             }
             catch (Exception ex)

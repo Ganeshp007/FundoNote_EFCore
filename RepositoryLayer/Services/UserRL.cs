@@ -62,7 +62,7 @@
             {
                 var user = fundoContext.Users.Where(x => x.Email == userLoginModel.Email && x.Password == userLoginModel.Password).FirstOrDefault();
 
-                if (user == null)
+                if (user == null || ( user.Email != userLoginModel.Email || user.Password != userLoginModel.Password))
                 {
                     return null;
                 }
